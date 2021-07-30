@@ -64,9 +64,12 @@ npx ts-node \
     --eth-node="http://$ETH_HOST:8545" \
     --eth-privkey="$ETH_MINER_PRIVATE_KEY" \
     --contract=artifacts/contracts/Gravity.sol/Gravity.json \
-    --test-mode=true | grep "Gravity deployed at Address" | grep -Eow '0x[0-9a-fA-F]{40}' >> /root/testchain/gravity/eth_contract_address
+    --test-mode=true >> /contracts
 
-CONTRACT_ADDRESS=$(cat $GRAVITY_HOME/eth_contract_address)
+
+grep "Gravity deployed at Address" /contracts | grep -Eow '0x[0-9a-fA-F]{40}' >> /root/testchain/gravity/eth_contract_address
+
+CONTRACT_ADDRESS=$(cat /root/testchain/gravity/eth_contract_address)
 echo "Contract address: $CONTRACT_ADDRESS"
 #-------------------- Run orchestrator --------------------
 
