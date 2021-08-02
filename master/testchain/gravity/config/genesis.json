@@ -1,5 +1,5 @@
 {
-  "genesis_time": "2021-08-02T14:56:17.45037986Z",
+  "genesis_time": "2021-08-02T14:56:29.122709141Z",
   "chain_id": "gravity-test",
   "initial_height": "1",
   "consensus_params": {
@@ -33,14 +33,14 @@
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "cosmos12088w9tpfm70zs2kssrz7g69uh33es3tgmmy5z",
+          "address": "cosmos1y0c34n5lemwcvh0zf734nvf6cnwalu3j0nzedl",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
         },
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "cosmos1g96hhdmmre0gm8ul239ze68rsgh4ced76q2mp0",
+          "address": "cosmos1sctjww4xewyetpvxs39ljpd8acjd02fy0qt9de",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
@@ -54,7 +54,7 @@
       },
       "balances": [
         {
-          "address": "cosmos12088w9tpfm70zs2kssrz7g69uh33es3tgmmy5z",
+          "address": "cosmos1y0c34n5lemwcvh0zf734nvf6cnwalu3j0nzedl",
           "coins": [
             {
               "denom": "footoken",
@@ -67,7 +67,7 @@
           ]
         },
         {
-          "address": "cosmos1g96hhdmmre0gm8ul239ze68rsgh4ced76q2mp0",
+          "address": "cosmos1sctjww4xewyetpvxs39ljpd8acjd02fy0qt9de",
           "coins": [
             {
               "denom": "footoken",
@@ -135,11 +135,11 @@
                   "max_change_rate": "0.010000000000000000"
                 },
                 "min_self_delegation": "1",
-                "delegator_address": "cosmos12088w9tpfm70zs2kssrz7g69uh33es3tgmmy5z",
-                "validator_address": "cosmosvaloper12088w9tpfm70zs2kssrz7g69uh33es3td003c3",
+                "delegator_address": "cosmos1y0c34n5lemwcvh0zf734nvf6cnwalu3j0nzedl",
+                "validator_address": "cosmosvaloper1y0c34n5lemwcvh0zf734nvf6cnwalu3j28kvpv",
                 "pubkey": {
                   "@type": "/cosmos.crypto.ed25519.PubKey",
-                  "key": "BQvoT0JpDalU4MHbYzfjTstiPfvSWLmP8InI8DZMsP0="
+                  "key": "MMCTMcCogvu7LvAxLfox29yvv+bxr8+PLcoQLOGJgSc="
                 },
                 "value": {
                   "denom": "stake",
@@ -148,12 +148,12 @@
               },
               {
                 "@type": "/gravity.v1.MsgSetOrchestratorAddress",
-                "validator": "cosmosvaloper12088w9tpfm70zs2kssrz7g69uh33es3td003c3",
-                "orchestrator": "cosmos1g96hhdmmre0gm8ul239ze68rsgh4ced76q2mp0",
-                "eth_address": "0x2250f259ddc2e6AE8c4dD2A4C11d26b3022a3998"
+                "validator": "cosmosvaloper1y0c34n5lemwcvh0zf734nvf6cnwalu3j28kvpv",
+                "orchestrator": "cosmos1sctjww4xewyetpvxs39ljpd8acjd02fy0qt9de",
+                "eth_address": "0xBfCe754ed6f89B5e65657f877bcd026F89E0345a"
               }
             ],
-            "memo": "ec1575b5ea22b8ec6ef49f3a1b9b0699930c0227@0.0.0.0:26656",
+            "memo": "265c45f0d2b2c4316aff472bd25ce4b0e13ad787@0.0.0.0:26656",
             "timeout_height": "0",
             "extension_options": [],
             "non_critical_extension_options": []
@@ -163,7 +163,7 @@
               {
                 "public_key": {
                   "@type": "/cosmos.crypto.secp256k1.PubKey",
-                  "key": "Atq303qlPV70vGP3sbVVihJIu5kR09jg3j1FWwVAehft"
+                  "key": "AwYnxp/eX5wlwOzkRhZJzAj8+GS6RU8EDb4YCcQpHpug"
                 },
                 "mode_info": {
                   "single": {
@@ -181,7 +181,7 @@
             }
           },
           "signatures": [
-            "XGmxNOe5+x9s8iCftc/6fqO8nvUcNq6lfgKJKhle1MNOSilfBHaCr40aG6ShPSB7XuYY75rsJdHaFadbCbJjiw=="
+            "spJhCjDK8Mn2PT/hMiQ49k0ZrDDvq+BSFG2B7U6IJgtQaTWwrzfJjZr6XDGHAD1hYrr3c1tkmZ1e3Tob2yqHLA=="
           ]
         }
       ]
