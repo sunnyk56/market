@@ -52,15 +52,16 @@ echo "Creating $GRAVITY_NODE_NAME validator with chain-id=$CHAINID..."
 echo "Initializing genesis files"
 # Build genesis file incl account for passed address
 GRAVITY_GENESIS_COINS="100000000000$STAKE_DENOM,100000000000$NORMAL_DENOM"
+
+# Initialize the home directory and add some keys
+echo "Init test chain"
+$GRAVITY $GRAVITY_HOME_FLAG $GRAVITY_CHAINID_FLAG init $GRAVITY_NODE_NAME
+
 # add in denom metadata for both native tokens
 jq '.app_state.bank.denom_metadata += [{"base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]}, {"base": "stake", display: "mstake", "description": "A staking test token", "denom_units": [{"denom": "stake", "exponent": 0}, {"denom": "mstake", "exponent": 6}]}]' $GRAVITY_HOME_CONFIG/genesis.json
 
 # a 60 second voting period to allow us to pass governance proposals in the tests
 jq '.app_state.gov.voting_params.voting_period = "60s"' $GRAVITY_HOME_CONFIG/genesis.json
-
-# Initialize the home directory and add some keys
-echo "Init test chain"
-$GRAVITY $GRAVITY_HOME_FLAG $GRAVITY_CHAINID_FLAG init $GRAVITY_NODE_NAME
 echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
 echo "Adding validator addresses to genesis files"
