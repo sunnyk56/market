@@ -14,8 +14,18 @@ RUN git clone -b $GIT_HUB_BRANCH $GIT_HUB_REPO
 RUN cp -r /root/market/deploy/master-cosmos-orchestrator-node/scripts scripts
 #RUN cp -r /root/market/master/assets assets
 RUN cp -r /root/market/master/testchain testchain
+RUN cp  /root/market/master/validator-phrases /validator-phrases
+RUN cp  /root/market/master/orchestrator-phrases /orchestrator-phrases
+RUN cp  /root/market/master/validator-eth-keys /validator-eth-keys
 
 RUN chmod -R +x /root/scripts
 RUN chmod -R +x /root/testchain
+
+RUN git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git /gravity
+WORKDIR /gravity/solidity
+RUN HUSKY_SKIP_INSTALL=1 npm install
+RUN npm run typechain
+WORKDIR /root
+
 
 CMD ["sh", "scripts/orchestrator-run.sh"]

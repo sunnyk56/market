@@ -25,7 +25,7 @@ RUN cp -r /root/market/deploy/master-cosmos-orchestrator-node/assets assets
 RUN chmod -R +x /root/scripts
 RUN chmod -R +x /root/assets
 
-RUN git clone https://github.com/sunnyk56/cosmos-gravity-bridge.git /gravity
+RUN git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git /gravity
 WORKDIR /gravity/solidity
 RUN HUSKY_SKIP_INSTALL=1 npm install
 RUN npm run typechain
