@@ -17,7 +17,7 @@ do
 # add this ip for loopback dialing
 ip addr add 0.0.0.0/32 dev eth0 || true # allowed to fail
 
-GAIA_HOME="--home /validator$i"
+GAIA_HOME="--home /root/testchain/gravity"
 # this implicitly caps us at ~6000 nodes for this sim
 # note that we start on 26656 the idea here is that the first
 # node (node 1) is at the expected contact address from the gentx
@@ -38,8 +38,9 @@ fi
 LISTEN_ADDRESS="--address tcp://0.0.0.0:26655"
 P2P_ADDRESS="--p2p.laddr tcp://0.0.0.0:26656"
 LOG_LEVEL="--log_level error"
-ARGS="$GAIA_HOME $LISTEN_ADDRESS $RPC_ADDRESS $GRPC_ADDRESS $LOG_LEVEL $P2P_ADDRESS"
-$BIN $ARGS start > /validator$i/logs &
+
+ARGS="--home /root/testchain/gravity"
+$BIN $ARGS start > /root/testchain/gravity/logs &
 done
 
 # let the cosmos chain settle before starting eth as it
