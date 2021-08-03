@@ -32,6 +32,8 @@ ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
 ETH_HOST=$2
 
 CONTRACT_ADDRESS=$(cat /root/market/master/eth_contract_address)
+cp /root/market/master/contracts /contracts
+
 echo "Contract address: $CONTRACT_ADDRESS"
 
 echo "Gathering keys for orchestrator"
