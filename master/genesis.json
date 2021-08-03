@@ -44,6 +44,13 @@
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
+        },
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "cosmos10kcs0270j6an8t99mlc8zh7ndrgcejuqds9f63",
+          "pub_key": null,
+          "account_number": "0",
+          "sequence": "0"
         }
       ]
     },
@@ -68,6 +75,19 @@
         },
         {
           "address": "cosmos15w8wvzk6rqa4art33kvz8y3wq3779q3grwepna",
+          "coins": [
+            {
+              "denom": "footoken",
+              "amount": "100000000000"
+            },
+            {
+              "denom": "stake",
+              "amount": "100000000000"
+            }
+          ]
+        },
+        {
+          "address": "cosmos10kcs0270j6an8t99mlc8zh7ndrgcejuqds9f63",
           "coins": [
             {
               "denom": "footoken",
