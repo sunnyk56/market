@@ -95,7 +95,14 @@ done
 
 echo "Adding initial ethereum value for miner"
 jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
-
+# Switch sed command in the case of linux
+fsed() {
+  if [ `uname` = 'Linux' ]; then
+    sed -i "$@"
+  else
+    sed -i '' "$@"
+  fi
+}
 fsed "s#\"tcp://127.0.0.1:26656\"#\"tcp://0.0.0.0:26656\"#g" $GRAVITY_NODE_CONFIG
 fsed "s#\"tcp://127.0.0.1:26657\"#\"tcp://0.0.0.0:26657\"#g" $GRAVITY_NODE_CONFIG
 fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
