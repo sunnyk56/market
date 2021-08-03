@@ -32,7 +32,7 @@ RUN npm run typechain
 
 WORKDIR /root
 
-RUN sh /root/scripts/setup-validator.sh 1
+RUN sh /root/scripts/init.sh
 
 ##----------------------------- commit master genesis,json file and seed-----
 #RUN gravity --home /root/testchain/gravity tendermint show-node-id > seed
