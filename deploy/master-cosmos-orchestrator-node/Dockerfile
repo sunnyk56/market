@@ -25,14 +25,18 @@ RUN cp -r /root/market/deploy/master-cosmos-orchestrator-node/assets assets
 RUN chmod -R +x /root/scripts
 RUN chmod -R +x /root/assets
 
-RUN sh scripts/init.sh
+RUN sh scripts/setup-validator.sh 1
+RUN git clone https://github.com/sunnyk56/cosmos-gravity-bridge.git /gravity
+WORKDIR /gravity/solidity
+RUN HUSKY_SKIP_INSTALL=1 npm install
+RUN npm run typechain
 
 ##----------------------------- commit master genesis,json file and seed-----
-RUN gravity --home /root/testchain/gravity tendermint show-node-id > seed
-RUN sed -i 's#'$(gravity --home /root/testchain/gravity tendermint show-node-id)'#'$(gravity --home /root/testchain/gravity tendermint show-node-id)'@'$PUBLIC_IP':26656#g' seed
+#RUN gravity --home /root/testchain/gravity tendermint show-node-id > seed
+#RUN sed -i 's#'$(gravity --home /root/testchain/gravity tendermint show-node-id)'#'$(gravity --home /root/testchain/gravity tendermint show-node-id)'@'$PUBLIC_IP':26656#g' seed
 
-WORKDIR /root/market
-RUN sh deploy/master-cosmos-orchestrator-node/scripts/store-master-info.sh $GIT_HUB_USER $GIT_HUB_PASS $GIT_HUB_EMAIL $GIT_HUB_BRANCH
+#WORKDIR /root/market
+#RUN sh deploy/master-cosmos-orchestrator-node/scripts/store-master-info.sh $GIT_HUB_USER $GIT_HUB_PASS $GIT_HUB_EMAIL $GIT_HUB_BRANCH
 
 WORKDIR /root
 
