@@ -3,6 +3,9 @@ GRAVITY_ASSETS="/root/assets"
 GRAVITY_GENESIS_FILE="/root/testchain/gravity/config/genesis.json"
 GRAVITY_GENTX="/root/testchain/gravity/config/gentx"
 BUCKET_PEER_CHAIN_DATA="peerInfo/testchain"
+BUCKET_PEER_CHAIN_DATA_VALIDATOR_PHRASE="peerInfo/validator-phrases"
+BUCKET_PEER_CHAIN_DATA_ORCHESTRATOR_PHRASE="peerInfo/orchestrator-phrases"
+BUCKET_PEER_CHAIN_DATA_VALIDATOR_ETH_KEYS="peerInfo/validator-eth-keys"
 BUCKET_PEER_GENTX_DATA="peerInfo/gentx"
 BUCKET_MASTER_ASSETS="master/assets"
 
@@ -20,7 +23,14 @@ mkdir peerInfo
 mkdir $BUCKET_PEER_CHAIN_DATA
 mkdir $BUCKET_PEER_GENTX_DATA
 mkdir $BUCKET_MASTER_ASSETS
+touch $BUCKET_PEER_CHAIN_DATA_VALIDATOR_PHRASE
+touch $BUCKET_PEER_CHAIN_DATA_ORCHESTRATOR_PHRASE
+touch $BUCKET_PEER_CHAIN_DATA_VALIDATOR_ETH_KEYS
 echo "Copying gentx and testchain data in peerInfo and EthGenesis.json in master/assets"
+
+cp /validator-phrases $BUCKET_PEER_CHAIN_DATA_VALIDATOR_PHRASE
+cp /orchestrator-phrases $BUCKET_PEER_CHAIN_DATA_ORCHESTRATOR_PHRASE
+cp /validator-eth-keys $BUCKET_PEER_CHAIN_DATA_VALIDATOR_ETH_KEYS
 cp -r $GRAVITY_GENTX/. $BUCKET_PEER_GENTX_DATA
 cp -r $GRAVITY_CHAIN_DATA/. $BUCKET_PEER_CHAIN_DATA
 cp -r $GRAVITY_ASSETS/. $BUCKET_MASTER_ASSETS
