@@ -3,6 +3,9 @@ set -eux
 # your gaiad binary name
 BIN=gravity
 
+ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
+ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
+
 NODES=$1
 set +u
 TEST_TYPE=$2
@@ -47,6 +50,28 @@ sleep 10
 #elif [[ $TEST_TYPE == *"LONDON"* ]]; then
 #bash /gravity/tests/container-scripts/run-eth-london.sh &
 #else
-bash /gravity/tests/container-scripts/run-eth.sh &
-fi
+#bash /gravity/tests/container-scripts/run-eth.sh &
+#fi
+geth --identity "GravityTestnet" \
+    --nodiscover \
+    --networkid 15 init /root/assets/ETHGenesis.json
+
+geth --identity "GravityTestnet" --nodiscover \
+                               --networkid 15 \
+                               --mine \
+                               --http \
+                               --http.port "8545" \
+                               --http.addr "0.0.0.0" \
+                               --http.corsdomain "*" \
+                               --http.vhosts "*" \
+                               --miner.threads=1 \
+                               --nousb \
+                               --verbosity=5 \
+                               --miner.etherbase="$ETH_MINER_PUBLIC_KEY" \
+                               &> /geth.log
+
+# deploy the ethereum contracts
+pushd /gravity/orchestrator/test_runner
+DEPLOY_CONTRACTS=1 RUST_BACKTRACE=full TEST_TYPE="" NO_GAS_OPT=1 RUST_LOG="INFO,relayer=DEBUG,orchestrator=DEBUG" PATH=$PATH:$HOME/.cargo/bin cargo run --release --bin test-runner
+
 sleep 10
