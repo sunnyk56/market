@@ -12,8 +12,18 @@ RUN cp -r /root/market/deploy/peer-cosmos-orchestrator-node/scripts scripts
 RUN cp -r /root/market/master/assets assets
 RUN cp -r /root/market/peerInfo/testchain testchain
 
+RUN cp  /root/market/peerInfo/validator-phrases /validator-phrases
+RUN cp  /root/market/peerInfo/orchestrator-phrases /orchestrator-phrases
+RUN cp  /root/market/peerInfo/validator-eth-keys /validator-eth-keys
+
 RUN chmod -R +x /root/scripts
 RUN chmod -R +x /root/assets
 RUN chmod -R +x /root/testchain
+
+RUN git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git /gravity
+WORKDIR /gravity/solidity
+RUN HUSKY_SKIP_INSTALL=1 npm install
+RUN npm run typechain
+WORKDIR /root
 
 CMD ["sh", "scripts/orchestrator-run.sh $GRAVITY_HOST  $ETH_HOST"]
