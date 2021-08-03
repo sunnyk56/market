@@ -68,8 +68,12 @@ mv /genesis.json $GRAVITY_HOME_CONFIG/genesis.json
 
 echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
+jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
+
 echo "Generating orchestrator keys"
 $GRAVITY $GRAVITY_HOME_FLAG keys add --output=json $GRAVITY_ORCHESTRATOR_NAME $GRAVITY_KEYRING_FLAG | jq . >> $GRAVITY_HOME/orchestrator_key.json
+jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrator-phrases
+
 echo "Adding validator addresses to genesis files"
 $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_VALIDATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
 echo "Adding orchestrator addresses to genesis files"
@@ -83,6 +87,9 @@ $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG k
 
 echo "Generating ethereum keys"
 $GRAVITY $GRAVITY_HOME_FLAG eth_keys add --output=json | jq . >> $GRAVITY_HOME/eth_key.json
+echo "private: $(jq .private_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" > /validator-eth-keys
+echo "public: $(jq .public_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
+echo "address: $(jq .address $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
 
 echo "Creating gentxs"
 $GRAVITY $GRAVITY_HOME_FLAG gentx --ip $GRAVITY_HOST $GRAVITY_VALIDATOR_NAME 100000000000$STAKE_DENOM "$(jq -r .address $GRAVITY_HOME/eth_key.json)" "$(jq -r .address $GRAVITY_HOME/orchestrator_key.json)" $GRAVITY_KEYRING_FLAG $GRAVITY_CHAINID_FLAG
