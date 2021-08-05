@@ -43,8 +43,11 @@ echo "Adding orchestrator keys to genesis"
 GRAVITY_ORCHESTRATOR_KEY="$(jq .address $PEER_INFO_ORCHESTRATOR_KEY)"
 echo $GRAVITY_ORCHESTRATOR_KEY
 
-jq ".app_state.auth.accounts += [{\"@type\": \"/cosmos.auth.v1beta1.BaseAccount\",\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"pub_key\": null,\"account_number\": \"0\",\"sequence\": \"0\"}]" $GRAVITY_CONFIG_FILE/genesis.json | sponge $GRAVITY_CONFIG_FILE/genesis.json
-jq ".app_state.bank.balances += [{\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"coins\": [{\"denom\": \"$NORMAL_DENOM\",\"amount\": \"100000000000\"},{\"denom\": \"$STAKE_DENOM\",\"amount\": \"100000000000\"}]}]" $GRAVITY_CONFIG_FILE/genesis.json | sponge $GRAVITY_CONFIG_FILE/genesis.json
+echo "Adding orchestrator addresses to genesis files"
+gravity $GRAVITY_HOME_FLAG add-genesis-account $GRAVITY_ORCHESTRATOR_KEY $GRAVITY_GENESIS_COINS
+
+#jq ".app_state.auth.accounts += [{\"@type\": \"/cosmos.auth.v1beta1.BaseAccount\",\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"pub_key\": null,\"account_number\": \"0\",\"sequence\": \"0\"}]" $GRAVITY_CONFIG_FILE/genesis.json | sponge $GRAVITY_CONFIG_FILE/genesis.json
+#jq ".app_state.bank.balances += [{\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"coins\": [{\"denom\": \"$NORMAL_DENOM\",\"amount\": \"100000000000\"},{\"denom\": \"$STAKE_DENOM\",\"amount\": \"100000000000\"}]}]" $GRAVITY_CONFIG_FILE/genesis.json | sponge $GRAVITY_CONFIG_FILE/genesis.json
 
 
 echo "Collecting gentxs"

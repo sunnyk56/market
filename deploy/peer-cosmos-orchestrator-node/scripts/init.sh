@@ -69,6 +69,7 @@ mv /genesis.json $GRAVITY_HOME_CONFIG/genesis.json
 echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
 jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
+$GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_VALIDATOR_NAME -a $GRAVITY_KEYRING_FLAG > $GRAVITY_HOME/val_key
 
 echo "Generating orchestrator keys"
 $GRAVITY $GRAVITY_HOME_FLAG keys add --output=json $GRAVITY_ORCHESTRATOR_NAME $GRAVITY_KEYRING_FLAG | jq . >> $GRAVITY_HOME/orchestrator_key.json
