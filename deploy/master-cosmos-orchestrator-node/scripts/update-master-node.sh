@@ -40,7 +40,7 @@ cp -r $BUCKET_MASTER/assets/. $GRAVITY_ASSETS
 
 
 echo "Adding orchestrator keys to genesis"
-GRAVITY_ORCHESTRATOR_KEY="$(jq .address $PEER_INFO_ORCHESTRATOR_KEY)"
+GRAVITY_ORCHESTRATOR_KEY="$(jq .address $PEER_INFO_ORCHESTRATOR_KEY | sed 's#\"##g')"
 echo $GRAVITY_ORCHESTRATOR_KEY
 
 echo "Adding orchestrator addresses to genesis files"
@@ -55,10 +55,10 @@ gravity $GRAVITY_HOME_FLAG collect-gentxs
 
 # update genesis file ------
 #rm -r peerInfo
-rm -f $BUCKET_MASTER_GENESIS_FILE
-touch $BUCKET_MASTER_GENESIS_FILE
+rm -rf $BUCKET_MASTER_GENESIS_FILE
+#touch $BUCKET_MASTER_GENESIS_FILE
 echo "Copying genesis file"
-cp $GRAVITY_GENESIS_FILE $BUCKET_MASTER_GENESIS_FILE
+cp $GRAVITY_GENESIS_FILE $BUCKET_MASTER
 echo "git add command"
 git add master
 echo "git add git config command"
