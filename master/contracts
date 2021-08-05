@@ -11,11 +11,15 @@ About to get latest Gravity valset
     "nonce": "2",
     "members": [
       {
-        "power": "4294967295",
-        "ethereum_address": "0xc73A8f9601e1CF994293B239bc3aC89B8E707762"
+        "power": "2147483647",
+        "ethereum_address": "0x1048126Bf193434cb87E6984b64B88987f8C55aC"
+      },
+      {
+        "power": "2147483647",
+        "ethereum_address": "0x6cE592eFE48BB3cB5cd488029b70D438414CCf4D"
       }
     ],
-    "height": "57",
+    "height": "35",
     "reward_amount": "0",
     "reward_token": "0x0000000000000000000000000000000000000000"
   }
