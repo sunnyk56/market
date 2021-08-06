@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push master-cosmos-validator-node
-        run: docker buildx build --tag leeway321/cosmos-master-node --file deploy/testchain/mainNode/cosmos/Dockerfile --platform linux/amd64 --push --progress tty --build-arg PUBLIC_IP=${{ secrets.MASTER_NODE_HOST }} --build-arg GIT_HUB_USER=sunnyk56 --build-arg GIT_HUB_PASS=Leeway321 --build-arg GIT_HUB_EMAIL=sunnyk@leewayhertz.com --build-arg GIT_HUB_BRANCH=config --build-arg GIT_HUB_REPO=https://github.com/sunnyk56/market.git .
+        run: docker buildx build --tag leeway321/cosmos-master-node --file deploy/testchain/mainNode/cosmos/Dockerfile --platform linux/amd64 --push --progress tty --build-arg PUBLIC_IP=${{ secrets.MASTER_NODE_HOST }} --build-arg GIT_HUB_USER=sunnyk56 --build-arg GIT_HUB_PASS=Leeway321 --build-arg GIT_HUB_EMAIL=sunnyk@leewayhertz.com --build-arg GIT_HUB_BRANCH=ONET-65 --build-arg GIT_HUB_REPO=https://github.com/sunnyk56/market.git .
 
       - name: start master-cosmos-validator-node
         uses: garygrossgarten/github-action-ssh@release
