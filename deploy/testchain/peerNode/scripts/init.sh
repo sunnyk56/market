@@ -12,7 +12,7 @@ GRAVITY=gravity
 # The name of the gravity node
 GRAVITY_NODE_NAME="gravity"
 # The address to run gravity node
-GRAVITY_HOST="167.99.153.118"
+GRAVITY_HOST="0.0.0.0"
 # Home folder for gravity config
 GRAVITY_HOME="$CURRENT_WORKING_DIR/$CHAINID/$GRAVITY_NODE_NAME"
 # Home flag for home folder
@@ -28,9 +28,9 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-GRAVITY_VALIDATOR_NAME="val2"
+GRAVITY_VALIDATOR_NAME=val1
 # The name of the gravity orchestrator/validator
-GRAVITY_ORCHESTRATOR_NAME="orch2"
+GRAVITY_ORCHESTRATOR_NAME=orch1
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
@@ -38,7 +38,9 @@ NORMAL_DENOM="footoken"
 
 # This key is the private key for the public key defined in ETHGenesis.json
 # where the full node / miner sends its rewards. Therefore it's always going
-
+# to have a lot of ETH to pay for things like contract deployments
+#ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
+#ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
 ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
 ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
 # The host of ethereum node
@@ -60,15 +62,14 @@ echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
 jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
 
+echo "Generating orchestrator keys"
+$GRAVITY $GRAVITY_HOME_FLAG keys add --output=json $GRAVITY_ORCHESTRATOR_NAME $GRAVITY_KEYRING_FLAG | jq . >> $GRAVITY_HOME/orchestrator_key.json
+jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrator-phrases
 
 #copy master genesis file 
 rm $GRAVITY_HOME_CONFIG/genesis.json
 wget http://192.241.143.199:26657/genesis? -O $GRAVITY_HOME_CONFIG/genesis.json
 
-
-# echo "Generating orchestrator keys"
-# $GRAVITY $GRAVITY_HOME_FLAG keys add --output=json $GRAVITY_ORCHESTRATOR_NAME $GRAVITY_KEYRING_FLAG | jq . >> $GRAVITY_HOME/orchestrator_key.json
-# jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrator-phrases
 
 # echo "Adding validator addresses to genesis files"
 # $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_VALIDATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
@@ -111,10 +112,10 @@ fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
 
+# echo "Adding initial ethereum value for miner"
+# # jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
+# echo $GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id
 $GRAVITY $GRAVITY_HOME_FLAG start &
-
-#echo "Adding initial ethereum value for miner"
-#jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
 
 #echo "Adding initial ethereum value for gravity validator"
 #jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
