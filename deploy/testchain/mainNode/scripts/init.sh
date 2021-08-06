@@ -4,7 +4,8 @@ set -eu
 echo "building environment"
 
 # Initial dir
-CURRENT_WORKING_DIR=$(pwd)
+# CURRENT_WORKING_DIR=$(pwd)
+CURRENT_WORKING_DIR="root"
 # Name of the network to bootstrap
 CHAINID="testchain"
 # Name of the gravity artifact
