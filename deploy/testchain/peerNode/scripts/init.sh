@@ -4,7 +4,7 @@ set -eu
 echo "building environment"
 
 # Initial dir
-CURRENT_WORKING_DIR=$(pwd)
+CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
 CHAINID="testchain"
 # Name of the gravity artifact
@@ -64,32 +64,6 @@ jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phra
 #copy master genesis file 
 rm $GRAVITY_HOME_CONFIG/genesis.json
 wget http://192.241.143.199:26657/genesis? -O $GRAVITY_HOME_CONFIG/genesis.json
-# Switch sed command in the case of linux
-fsed() {
-  if [ `uname` = 'Linux' ]; then
-    sed -i "$@"
-  else
-    sed -i '' "$@"
-  fi
-}
-
-# Change ports
-fsed "s#\"tcp://127.0.0.1:26656\"#\"tcp://$GRAVITY_HOST:26656\"#g" $GRAVITY_NODE_CONFIG
-fsed "s#\"tcp://127.0.0.1:26657\"#\"tcp://$GRAVITY_HOST:26657\"#g" $GRAVITY_NODE_CONFIG
-fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
-fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
-fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
-fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
-fsed 's#seeds = ""#seeds = "f9c0d1f1b2540cd1c08435502fc1a8d5cba17f4e@192.241.143.199:26656"#g' /root/testchain/gravity/config/config.toml
-gravity --home /root/testchain/gravity start &
-
-
-
-
-
-
-
-
 
 
 # echo "Generating orchestrator keys"
@@ -107,17 +81,17 @@ gravity --home /root/testchain/gravity start &
 #jq ".app_state.auth.accounts += [{\"@type\": \"/cosmos.auth.v1beta1.BaseAccount\",\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"pub_key\": null,\"account_number\": \"0\",\"sequence\": \"0\"}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
 #jq ".app_state.bank.balances += [{\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"coins\": [{\"denom\": \"$NORMAL_DENOM\",\"amount\": \"100000000000\"},{\"denom\": \"$STAKE_DENOM\",\"amount\": \"100000000000\"}]}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
 
-echo "Generating ethereum keys"
-$GRAVITY $GRAVITY_HOME_FLAG eth_keys add --output=json | jq . >> $GRAVITY_HOME/eth_key.json
-echo "private: $(jq .private_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" > /validator-eth-keys
-echo "public: $(jq .public_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
-echo "address: $(jq .address $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
+# echo "Generating ethereum keys"
+# $GRAVITY $GRAVITY_HOME_FLAG eth_keys add --output=json | jq . >> $GRAVITY_HOME/eth_key.json
+# echo "private: $(jq .private_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" > /validator-eth-keys
+# echo "public: $(jq .public_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
+# echo "address: $(jq .address $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
 
-echo "Creating gentxs"
-$GRAVITY $GRAVITY_HOME_FLAG gentx --ip $GRAVITY_HOST $GRAVITY_VALIDATOR_NAME 100000000000$STAKE_DENOM "$(jq -r .address $GRAVITY_HOME/eth_key.json)" "$(jq -r .address $GRAVITY_HOME/orchestrator_key.json)" $GRAVITY_KEYRING_FLAG $GRAVITY_CHAINID_FLAG
+# echo "Creating gentxs"
+# $GRAVITY $GRAVITY_HOME_FLAG gentx --ip $GRAVITY_HOST $GRAVITY_VALIDATOR_NAME 100000000000$STAKE_DENOM "$(jq -r .address $GRAVITY_HOME/eth_key.json)" "$(jq -r .address $GRAVITY_HOME/orchestrator_key.json)" $GRAVITY_KEYRING_FLAG $GRAVITY_CHAINID_FLAG
 
-echo "Collecting gentxs in $GRAVITY_NODE_NAME"
-$GRAVITY $GRAVITY_HOME_FLAG collect-gentxs
+# echo "Collecting gentxs in $GRAVITY_NODE_NAME"
+# $GRAVITY $GRAVITY_HOME_FLAG collect-gentxs
 
 echo "Exposing ports and APIs of the $GRAVITY_NODE_NAME"
 # Switch sed command in the case of linux
