@@ -24,4 +24,4 @@ RUN HUSKY_SKIP_INSTALL=1 npm install
 RUN npm run typechain
 WORKDIR /root
 
-CMD sh scripts/init.sh
+# CMD sh scripts/init.sh
