@@ -28,9 +28,9 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-GRAVITY_VALIDATOR_NAME=val
+GRAVITY_VALIDATOR_NAME=val1
 # The name of the gravity orchestrator/validator
-GRAVITY_ORCHESTRATOR_NAME=orch
+GRAVITY_ORCHESTRATOR_NAME=orch1
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
@@ -115,8 +115,10 @@ fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
 
-echo "Adding initial ethereum value for miner"
-jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
+# echo "Adding initial ethereum value for miner"
+# jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
+echo $GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id
+$GRAVITY $GRAVITY_HOME_FLAG start &
 
 #echo "Adding initial ethereum value for gravity validator"
 #jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json

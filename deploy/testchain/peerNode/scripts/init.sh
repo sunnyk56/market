@@ -10,9 +10,9 @@ CHAINID="testchain"
 # Name of the gravity artifact
 GRAVITY=gravity
 # The name of the gravity node
-GRAVITY_NODE_NAME="val2"
+GRAVITY_NODE_NAME="gravity"
 # The address to run gravity node
-GRAVITY_HOST="0.0.0.0"
+GRAVITY_HOST="167.99.153.118"
 # Home folder for gravity config
 GRAVITY_HOME="$CURRENT_WORKING_DIR/$CHAINID/$GRAVITY_NODE_NAME"
 # Home flag for home folder
@@ -28,7 +28,7 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-GRAVITY_VALIDATOR_NAME=val
+GRAVITY_VALIDATOR_NAME="val2"
 # The name of the gravity orchestrator/validator
 GRAVITY_ORCHESTRATOR_NAME="orch2"
 # Gravity chain demons
@@ -56,14 +56,6 @@ echo "Init test chain"
 $GRAVITY $GRAVITY_HOME_FLAG $GRAVITY_CHAINID_FLAG init $GRAVITY_NODE_NAME
 
 
-# add in denom metadata for both native tokens
-jq '.app_state.bank.denom_metadata += [{"base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]}, {"base": "stake", display: "mstake", "description": "A staking test token", "denom_units": [{"denom": "stake", "exponent": 0}, {"denom": "mstake", "exponent": 6}]}]' $GRAVITY_HOME_CONFIG/genesis.json > /metadata-genesis.json
-
-# a 60 second voting period to allow us to pass governance proposals in the tests
-jq '.app_state.gov.voting_params.voting_period = "60s"' /metadata-genesis.json > /edited-genesis.json
-mv /edited-genesis.json /genesis.json
-mv /genesis.json $GRAVITY_HOME_CONFIG/genesis.json
-
 echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
 jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
@@ -88,7 +80,7 @@ fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
 fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
-fsed 's#seeds = ""#seeds = "3256ef57c1c7cc1ef8cb98b716b41c0a344c5091@192.241.143.199:26656"#g' /root/testchain/gravity/config/config.toml
+fsed 's#seeds = ""#seeds = "f9c0d1f1b2540cd1c08435502fc1a8d5cba17f4e@192.241.143.199:26656"#g' /root/testchain/gravity/config/config.toml
 gravity --home /root/testchain/gravity start &
 
 
@@ -144,6 +136,8 @@ fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
 fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
+
+$GRAVITY $GRAVITY_HOME_FLAG start &
 
 #echo "Adding initial ethereum value for miner"
 #jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
