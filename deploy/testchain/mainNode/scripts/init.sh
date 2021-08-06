@@ -4,14 +4,13 @@ set -eu
 echo "building environment"
 
 # Initial dir
-# CURRENT_WORKING_DIR=$(pwd)
 CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
 CHAINID="testchain"
 # Name of the gravity artifact
 GRAVITY=gravity
 # The name of the gravity node
-GRAVITY_NODE_NAME="val1"
+GRAVITY_NODE_NAME="gravity"
 # The address to run gravity node
 GRAVITY_HOST="0.0.0.0"
 # Home folder for gravity config
@@ -31,13 +30,17 @@ GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
 GRAVITY_VALIDATOR_NAME=val
 # The name of the gravity orchestrator/validator
-GRAVITY_ORCHESTRATOR_NAME="orch1"
+GRAVITY_ORCHESTRATOR_NAME=orch
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
 
-
+# This key is the private key for the public key defined in ETHGenesis.json
+# where the full node / miner sends its rewards. Therefore it's always going
+# to have a lot of ETH to pay for things like contract deployments
+#ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
+#ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
 ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
 ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
 # The host of ethereum node
@@ -76,11 +79,11 @@ $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG k
 echo "Adding orchestrator addresses to genesis files"
 $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_ORCHESTRATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
 
-echo "Adding orchestrator keys to genesis"
-GRAVITY_ORCHESTRATOR_KEY="$(jq .address $GRAVITY_HOME/orchestrator_key.json)"
+#echo "Adding orchestrator keys to genesis"
+#GRAVITY_ORCHESTRATOR_KEY="$(jq .address $GRAVITY_HOME/orchestrator_key.json)"
 
-jq ".app_state.auth.accounts += [{\"@type\": \"/cosmos.auth.v1beta1.BaseAccount\",\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"pub_key\": null,\"account_number\": \"0\",\"sequence\": \"0\"}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
-jq ".app_state.bank.balances += [{\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"coins\": [{\"denom\": \"$NORMAL_DENOM\",\"amount\": \"100000000000\"},{\"denom\": \"$STAKE_DENOM\",\"amount\": \"100000000000\"}]}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
+#jq ".app_state.auth.accounts += [{\"@type\": \"/cosmos.auth.v1beta1.BaseAccount\",\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"pub_key\": null,\"account_number\": \"0\",\"sequence\": \"0\"}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
+#jq ".app_state.bank.balances += [{\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"coins\": [{\"denom\": \"$NORMAL_DENOM\",\"amount\": \"100000000000\"},{\"denom\": \"$STAKE_DENOM\",\"amount\": \"100000000000\"}]}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
 
 echo "Generating ethereum keys"
 $GRAVITY $GRAVITY_HOME_FLAG eth_keys add --output=json | jq . >> $GRAVITY_HOME/eth_key.json
@@ -114,11 +117,6 @@ fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
 
 echo "Adding initial ethereum value for miner"
 jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
-
-echo $GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id
-echo "Please write it down you will need it in future"
-sleep 20
-$GRAVITY $GRAVITY_HOME_FLAG start & > $GRAVITY_HOME/logs
 
 #echo "Adding initial ethereum value for gravity validator"
 #jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
