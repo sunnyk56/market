@@ -15,7 +15,6 @@ RUN git clone -b $GIT_HUB_BRANCH $GIT_HUB_REPO
 RUN cp -r /root/market/deploy/testchain/peerNode/scripts scripts
 
 RUN chmod -R +x /root/scripts
-RUN chmod -R +x /root/assets
 
 RUN git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git /gravity
 WORKDIR /gravity/solidity
