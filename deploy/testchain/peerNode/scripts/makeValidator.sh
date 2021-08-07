@@ -37,7 +37,7 @@ STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
 # Moniker of orchestrator
-MONIKER_ORCH=""
+MONIKER_ORCH="popular grant rural draft unhappy equal service expire evoke topple ozone lens chapter female soda fun hair clock century rail student robot prize mosquito"
 
 # Recover the orchestrator to take some token from it
 $GRAVITY_HOME_FLAG keys add orch1 --recover $$GRAVITY_KEYRING_FLAG <<< \"$MONIKER_ORCH\"

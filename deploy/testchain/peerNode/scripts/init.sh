@@ -36,7 +36,7 @@ STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
 #SEED INFO
-SEED="fa0442e76c69d72721b591a06c73ca539b9a0167@192.241.143.199:26656"
+SEED="76e6e1191ab54a0ebd0b95abd9f54ab8864f26eb@192.241.143.199:26656"
 
 # This key is the private key for the public key defined in ETHGenesis.json
 # where the full node / miner sends its rewards. Therefore it's always going
