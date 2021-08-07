@@ -2,7 +2,7 @@
 set -eu
 
 echo "building environment"
-
+sudo apt-get install wget nano -yq
 # Initial dir
 CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
@@ -12,7 +12,7 @@ GRAVITY=gravity
 # The name of the gravity node
 GRAVITY_NODE_NAME="gravity"
 # The address to run gravity node
-GRAVITY_HOST="0.0.0.0"
+GRAVITY_HOST="167.99.153.118"
 # Home folder for gravity config
 GRAVITY_HOME="$CURRENT_WORKING_DIR/$CHAINID/$GRAVITY_NODE_NAME"
 # Home flag for home folder
@@ -28,9 +28,9 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-GRAVITY_VALIDATOR_NAME=val1
+GRAVITY_VALIDATOR_NAME=val2
 # The name of the gravity orchestrator/validator
-GRAVITY_ORCHESTRATOR_NAME=orch1
+GRAVITY_ORCHESTRATOR_NAME=orch2
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
@@ -111,7 +111,7 @@ fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
 fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
-
+fsed 's#seeds = ""#seeds = "fa0442e76c69d72721b591a06c73ca539b9a0167@143.244.147.226:26656"#g' $GRAVITY_APP_CONFIG
 # echo "Adding initial ethereum value for miner"
 # # jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
 # echo $GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id
