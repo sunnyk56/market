@@ -39,7 +39,7 @@ NORMAL_DENOM="footoken"
 # echo "Please enter at least one seed"
 # read seed_line
 # SEED="$seed_line"
-SEED="b359d14110760785571906ea037d9255525f2118@192.241.143.199:26657"
+SEED="b359d14110760785571906ea037d9255525f2118@192.241.143.199:26656"
 
 # This key is the private key for the public key defined in ETHGenesis.json
 # where the full node / miner sends its rewards. Therefore it's always going
