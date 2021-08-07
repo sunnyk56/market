@@ -2,7 +2,7 @@
 set -eu
 
 echo "building environment"
-apt-get install wget nano -yq
+apt-get install wget nano jq -yq
 # Initial dir
 CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
@@ -35,6 +35,8 @@ GRAVITY_ORCHESTRATOR_NAME=orch2
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
+#SEED INFO
+SEED="fa0442e76c69d72721b591a06c73ca539b9a0167@192.241.143.199:26656"
 
 # This key is the private key for the public key defined in ETHGenesis.json
 # where the full node / miner sends its rewards. Therefore it's always going
@@ -68,8 +70,8 @@ jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrato
 
 #copy master genesis file 
 rm $GRAVITY_HOME_CONFIG/genesis.json
-wget http://192.241.143.199:26657/genesis? -O $GRAVITY_HOME_CONFIG/genesis.json
-
+wget http://192.241.143.199:26657/genesis? -O raw.json
+jq .result.genesis raw.json >> $GRAVITY_HOME_CONFIG/genesis.json
 
 # echo "Adding validator addresses to genesis files"
 # $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_VALIDATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
@@ -109,9 +111,10 @@ fsed "s#\"tcp://127.0.0.1:26656\"#\"tcp://$GRAVITY_HOST:26656\"#g" $GRAVITY_NODE
 fsed "s#\"tcp://127.0.0.1:26657\"#\"tcp://$GRAVITY_HOST:26657\"#g" $GRAVITY_NODE_CONFIG
 fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
 fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
+fsed 's#seeds = ""#seeds = "'$SEED'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
-fsed 's#seeds = ""#seeds = "fa0442e76c69d72721b591a06c73ca539b9a0167@192.241.143.199:26656"#g' $GRAVITY_APP_CONFIG
+
 # echo "Adding initial ethereum value for miner"
 # # jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
 # echo $GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id
