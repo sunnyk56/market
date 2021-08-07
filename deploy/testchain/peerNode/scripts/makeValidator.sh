@@ -37,7 +37,9 @@ STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
 # Moniker of orchestrator
-MONIKER_ORCH="illegal glove reveal paddle smile behind because tenant neck brown drama eagle reduce fancy depth dove jelly yellow trouble staff brass gold warm mosquito"
+echo "Please enter moniker to add tokens from"
+read moniker
+MONIKER_ORCH="$moniker"
 
 # Recover the orchestrator to take some token from it
 $GRAVITY $GRAVITY_HOME_FLAG keys add orch1 --recover $GRAVITY_KEYRING_FLAG <<< $MONIKER_ORCH
