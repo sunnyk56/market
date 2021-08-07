@@ -54,7 +54,7 @@ PUB_KEY=$($GRAVITY $GRAVITY_HOME_FLAG tendermint show-validator)
 # Do the create validator transaction
 $GRAVITY $GRAVITY_HOME_FLAG tx staking create-validator \
 --amount=100000000$STAKE_DENOM \
---pubkey=\"$PUB_KEY\" \
+--pubkey="$PUB_KEY" \
 --moniker=\"$GRAVITY_VALIDATOR_NAME\" \
 --chain-id=$CHAINID \
 --commission-rate="0.10" \
@@ -63,6 +63,6 @@ $GRAVITY $GRAVITY_HOME_FLAG tx staking create-validator \
 --min-self-delegation="10" \
 --gas="auto" \
 --gas-adjustment=1.5 \
---gas-prices=\"1$NORMAL_DENOM\" \
+--gas-prices="1$NORMAL_DENOM" \
 --from=$GRAVITY_VALIDATOR_NAME \
 $GRAVITY_KEYRING_FLAG
