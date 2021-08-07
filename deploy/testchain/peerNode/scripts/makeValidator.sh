@@ -43,13 +43,13 @@ MONIKER_ORCH="popular grant rural draft unhappy equal service expire evoke toppl
 $GRAVITY $GRAVITY_HOME_FLAG keys add orch1 --recover $GRAVITY_KEYRING_FLAG <<< $MONIKER_ORCH
 
 # Transfer some stake token to new validator
-$GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch1 $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a val2 $GRAVITY_KEYRING_FLAG) 10000000stake $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
+$GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch1 $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a val2 $GRAVITY_KEYRING_FLAG) 100000000stake $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
 
 # Transfer some footoken to new validator
-$GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch1 $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a val2 $GRAVITY_KEYRING_FLAG) 10000000footoken $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
+$GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch1 $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a val2 $GRAVITY_KEYRING_FLAG) 100000000footoken $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
 
 # Stor the public key of validator
-PUB_KEY=$($GRAVITY_HOME_FLAG tendermint show-validator)
+PUB_KEY=$($GRAVITY $GRAVITY_HOME_FLAG tendermint show-validator)
 
 # Do the create validator transaction
 $GRAVITY $GRAVITY_HOME_FLAG tx staking create-validator \
@@ -63,6 +63,6 @@ $GRAVITY $GRAVITY_HOME_FLAG tx staking create-validator \
 --min-self-delegation="10" \
 --gas="auto" \
 --gas-adjustment=1.5 \
---gas-prices=\"1$NORMALDENOM\" \
+--gas-prices=\"1$NORMAL_DENOM\" \
 --from=$GRAVITY_VALIDATOR_NAME \
 $GRAVITY_KEYRING_FLAG
