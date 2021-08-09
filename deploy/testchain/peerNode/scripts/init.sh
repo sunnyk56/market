@@ -35,21 +35,7 @@ GRAVITY_ORCHESTRATOR_NAME=orch2
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
-#SEED INFO
-# echo "Please enter at least one seed"
-# read seed_line
-# SEED="$seed_line"
 SEED="b359d14110760785571906ea037d9255525f2118@192.241.143.199:26656"
-
-# This key is the private key for the public key defined in ETHGenesis.json
-# where the full node / miner sends its rewards. Therefore it's always going
-# to have a lot of ETH to pay for things like contract deployments
-#ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
-#ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
-ETH_MINER_PRIVATE_KEY="0xb1bab011e03a9862664706fc3bbaa1b16651528e5f0e7fbfcbfdd8be302a13e7"
-ETH_MINER_PUBLIC_KEY="0xBf660843528035a5A4921534E156a27e64B231fE"
-# The host of ethereum node
-ETH_HOST="0.0.0.0"
 
 # ------------------ Init gravity ------------------
 
@@ -75,29 +61,6 @@ jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrato
 rm $GRAVITY_HOME_CONFIG/genesis.json
 wget http://192.241.143.199:26657/genesis? -O raw.json
 jq .result.genesis raw.json >> $GRAVITY_HOME_CONFIG/genesis.json
-
-# echo "Adding validator addresses to genesis files"
-# $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_VALIDATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
-# echo "Adding orchestrator addresses to genesis files"
-# $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_ORCHESTRATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
-
-#echo "Adding orchestrator keys to genesis"
-#GRAVITY_ORCHESTRATOR_KEY="$(jq .address $GRAVITY_HOME/orchestrator_key.json)"
-
-#jq ".app_state.auth.accounts += [{\"@type\": \"/cosmos.auth.v1beta1.BaseAccount\",\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"pub_key\": null,\"account_number\": \"0\",\"sequence\": \"0\"}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
-#jq ".app_state.bank.balances += [{\"address\": $GRAVITY_ORCHESTRATOR_KEY,\"coins\": [{\"denom\": \"$NORMAL_DENOM\",\"amount\": \"100000000000\"},{\"denom\": \"$STAKE_DENOM\",\"amount\": \"100000000000\"}]}]" $GRAVITY_HOME_CONFIG/genesis.json | sponge $GRAVITY_HOME_CONFIG/genesis.json
-
-# echo "Generating ethereum keys"
-# $GRAVITY $GRAVITY_HOME_FLAG eth_keys add --output=json | jq . >> $GRAVITY_HOME/eth_key.json
-# echo "private: $(jq .private_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" > /validator-eth-keys
-# echo "public: $(jq .public_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
-# echo "address: $(jq .address $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
-
-# echo "Creating gentxs"
-# $GRAVITY $GRAVITY_HOME_FLAG gentx --ip $GRAVITY_HOST $GRAVITY_VALIDATOR_NAME 100000000000$STAKE_DENOM "$(jq -r .address $GRAVITY_HOME/eth_key.json)" "$(jq -r .address $GRAVITY_HOME/orchestrator_key.json)" $GRAVITY_KEYRING_FLAG $GRAVITY_CHAINID_FLAG
-
-# echo "Collecting gentxs in $GRAVITY_NODE_NAME"
-# $GRAVITY $GRAVITY_HOME_FLAG collect-gentxs
 
 echo "Exposing ports and APIs of the $GRAVITY_NODE_NAME"
 # Switch sed command in the case of linux
