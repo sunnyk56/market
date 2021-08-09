@@ -53,9 +53,6 @@ echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
 jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
 
-echo "Generating orchestrator keys"
-$GRAVITY $GRAVITY_HOME_FLAG keys add --output=json $GRAVITY_ORCHESTRATOR_NAME $GRAVITY_KEYRING_FLAG | jq . >> $GRAVITY_HOME/orchestrator_key.json
-jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrator-phrases
 
 #copy master genesis file 
 rm $GRAVITY_HOME_CONFIG/genesis.json
@@ -81,12 +78,8 @@ fsed 's#seeds = ""#seeds = "'$SEED'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
 
-# echo "Adding initial ethereum value for miner"
-# # jq ".alloc |= . + {\"$ETH_MINER_PUBLIC_KEY\" : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
-# echo $GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id
+
 $GRAVITY $GRAVITY_HOME_FLAG start &
 
-#echo "Adding initial ethereum value for gravity validator"
-#jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" assets/ETHGenesis.json | sponge assets/ETHGenesis.json
 
 

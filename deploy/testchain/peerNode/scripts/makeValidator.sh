@@ -37,7 +37,7 @@ STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
 # Moniker of orchestrator
-echo "Please enter moniker to add tokens from"
+echo "Please enter moniker to fetch tokens from"
 read moniker
 MONIKER_ORCH="$moniker"
 
