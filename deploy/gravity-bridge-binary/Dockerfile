@@ -8,11 +8,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -yq
     ca-certificates \
     tar \
     git
-# curl ca-certificate tar git jq
-# yum groupinstall "Development Tools"
-# yum install gcc-c++
-# sudo dnf copr enable ngompa/musl-libc
-# sudo dnf install musl-devel
+
 
 
 
@@ -70,19 +66,9 @@ RUN npm run typechain
 RUN add-apt-repository -y ppa:ethereum/ethereum
 RUN apt-get install --no-install-recommends -yq ethereum
 
-#$ sudo yum -y update
-#$ sudo yum -y install golang
-#$ sudo yum -y install gmp-devel
-#$ sudo yum -y install git
-#$ git clone https://github.com/ethereum/go-ethereum
-#$ cd go-ethereum/
-#$ make geth
 # ------------------ soft to run the scripts ------------------
 RUN apt-get install --no-install-recommends -yq jq \
     moreutils
-# dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-# dnf update
-# sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-# dnf install moreutils
+
 WORKDIR /root
 CMD ["bash"]
