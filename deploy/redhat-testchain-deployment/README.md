@@ -5,8 +5,8 @@
 git clone -b ONET-65 https://github.com/sunnyk56/market.git
 ```
 
-Follow this step only when starting the testchain with one validator.
-## 1. First we'll install all the dependencies
+## 1. Follow this step only when starting the testchain with one validator.
+###  First we'll install all the dependencies
 
 - Use the ```bin.sh``` present in ```/deploy/redhat-testchain-deployment``` file to install all the dependencies.
 ```bash
