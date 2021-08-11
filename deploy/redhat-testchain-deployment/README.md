@@ -1,8 +1,11 @@
 
 # Steps to follow to start the testchain
-
+- clone this repository first.
+```bash
+git clone -b ONET-65 https://github.com/sunnyk56/market.git
+```
 ## First we'll install all the dependencies
-- Use the ```bin.sh``` file to install all the dependencies.
+- Use the ```bin.sh``` present in ```/deploy/redhat-testchain-deployment``` file to install all the dependencies.
 ```bash
 bash bin.sh
 ```
