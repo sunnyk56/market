@@ -30,7 +30,7 @@ bash init.sh
 ```
 - Now we have a full node connected to testchain and syncing, but still this node is not a validator node.
 - To make this node a validator node we have to perform a create validator transaction.
-- Run the following shell script to make this node a validator
+- Run the ```makeValidator.sh``` file present in ```/deploy/redhat-testchain-deployment/peer-validators``` shell script to make this node a validator
 - To run this script you need a ```Moniker``` of any orchestrator from the chain so that some tokens can be transffered to your validator.
 ```bash
 bash makeValidator.sh
