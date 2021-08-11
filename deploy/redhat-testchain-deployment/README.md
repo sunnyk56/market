@@ -4,12 +4,17 @@
 ```bash
 git clone -b ONET-65 https://github.com/sunnyk56/market.git
 ```
+
+Follow this step only when starting the testchain with one validator.
 ## First we'll install all the dependencies
+
 - Use the ```bin.sh``` present in ```/deploy/redhat-testchain-deployment``` file to install all the dependencies.
 ```bash
 bash bin.sh
 ```
+Follow this step only when starting a validator that will join the chain.
 ## Now we'll start our testchain with one validator node
+- Follow this step only when starting a validator that will join the chain.
 - Use ```init.sh``` file present in ```/deploy/redhat-testchain-deployment/master-validator``` to start the validator node.
 ```bash
 bash init.sh
