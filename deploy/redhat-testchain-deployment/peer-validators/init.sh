@@ -33,16 +33,16 @@ echo "Enter validator name"
 read validator
 GRAVITY_VALIDATOR_NAME=$validator
 # The name of the gravity orchestrator/validator
-enter "Enter orchestrator name"
+echo "Enter orchestrator name"
 read orchestrator
 GRAVITY_ORCHESTRATOR_NAME=$orchestrator
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
-echo "Please enter node-id to add seed"
+echo "Please enter node-id of any validator that is running in chain to add seed"
 read seedline
-echo "Please enter ip"
+echo "Please enter ip of validator for which you have added node-id"
 read ip
 SEED="$seedline@$ip:26656"
 
@@ -50,8 +50,6 @@ SEED="$seedline@$ip:26656"
 
 echo "Creating $GRAVITY_NODE_NAME validator with chain-id=$CHAINID..."
 echo "Initializing genesis files"
-# Build genesis file incl account for passed address
-GRAVITY_GENESIS_COINS="100000000000$STAKE_DENOM,100000000000$NORMAL_DENOM"
 
 # Initialize the home directory and add some keys
 echo "Init test chain"
@@ -67,6 +65,7 @@ jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phra
 rm $GRAVITY_HOME_CONFIG/genesis.json
 wget http://$ip:26657/genesis? -O raw.json
 jq .result.genesis raw.json >> $GRAVITY_HOME_CONFIG/genesis.json
+rm -rf raw.json
 
 echo "Exposing ports and APIs of the $GRAVITY_NODE_NAME"
 # Switch sed command in the case of linux
