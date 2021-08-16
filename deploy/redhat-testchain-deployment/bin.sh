@@ -1,5 +1,5 @@
 echo "-----------Installing_dependencies---------------"
-yum -y install curl gcc gcc-c++ kernel-devel make ca-certificates tar git jq python3 nano screen
+yum -y install curl gcc gcc-c++ kernel-devel make ca-certificates tar git jq python3 nano screen wget
 dnf -y copr enable ngompa/musl-libc
 dnf -y install musl-devel
 dnf -y install musl-gcc
