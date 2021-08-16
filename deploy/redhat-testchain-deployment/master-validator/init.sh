@@ -7,7 +7,7 @@ CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
 echo "Enter chain-id"
 read chainid
-CHAINID=\"$chainid\"
+CHAINID=$chainid
 # Name of the gravity artifact
 GRAVITY=gravity
 # The name of the gravity node
