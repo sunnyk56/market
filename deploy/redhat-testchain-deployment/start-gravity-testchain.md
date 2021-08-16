@@ -4,7 +4,7 @@
 bash init.sh
 ```
 - this will start a testchain with one validator.
-- Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your system to system in which you want to start Ethereum testchain.
+- Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your system to system in which you want to start Ethereum testchain.
 - once our Ethereum testchain started we'll deploy the smart contract.
 - first we'll open the folder where contracts are placed.
 ```bash
