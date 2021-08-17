@@ -45,10 +45,10 @@ gbt orchestrator \
 - You can find  all required information regarding validator, orchestrator and ethereum inside that folder.
 - Folder structure is ```~/"YOUR-TESTCHAIN-NAME"/gravity```
 - You have to pass some basic information to the other validators so that they can join your testchain.
-- - Testchain Name
-- - Your ```node-id```
-- - Your orchestrator ```mnemonic```
-- - Your ip
-- - Deployed ```Gravity-contract address```
-- - Your ```ETHGenesis.json``` file which you have used to start the ethereum testchain
-- - Ethereum-RPC address
+  - Testchain Name
+  - Your ```node-id```
+  - Your orchestrator ```mnemonic```
+  - Your ip
+  - Deployed ```Gravity-contract address```
+  - Your ```ETHGenesis.json``` file which you have used to start the ethereum testchain
+  - Ethereum-RPC address
