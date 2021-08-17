@@ -45,6 +45,6 @@ gbt orchestrator \
 - You can find  all required information regarding validator, orchestrator and ethereum inside that folder.
 - This is "YOUR_GRAVITY_DATA_DIR" ```~/"YOUR-TESTCHAIN-NAME"/gravity```
 ---
-GRAVITY-RPC : http://"YOUR_MACHINE_PUBLIC_IP":26657
-GRVAITY_GRPC : http://"YOUR_MACHINE_PUBLIC_IP":9090
-ETHEREUM_RPC : http://"YOUR_MACHINE_PUBLIC_IP":8545
+- GRAVITY-RPC : http://"YOUR_MACHINE_PUBLIC_IP":26657
+- GRVAITY_GRPC : http://"YOUR_MACHINE_PUBLIC_IP":9090
+- ETHEREUM_RPC : http://"YOUR_MACHINE_PUBLIC_IP":8545
