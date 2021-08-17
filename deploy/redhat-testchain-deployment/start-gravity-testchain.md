@@ -38,3 +38,17 @@ gbt orchestrator \
         --gravity-contract-address="0x330122273ffF8A31E8B5EAF2099cbFF881c9eEB7"
 ```
 - Now your testchain is up and running with one validator and one orchestrator
+
+---
+### Note
+- Your Gravity directory will be named as per your testchain name.
+- You can find  all required information regarding validator, orchestrator and ethereum inside that folder.
+- Folder structure is ```~/"YOUR-TESTCHAIN-NAME"/gravity```
+- You have to pass some basic information to the other validators so that they can join your testchain.
+- - Testchain Name
+- - Your ```node-id```
+- - Your orchestrator ```mnemonic```
+- - Your ip
+- - Deployed ```Gravity-contract address```
+- - Your ```ETHGenesis.json``` file which you have used to start the ethereum testchain
+- - Ethereum-RPC address

@@ -11,7 +11,7 @@ bash init.sh
 ```
 - To make this node a validator node we have to perform a create-validator transaction.
 - Run the ```makeValidator.sh``` shell script present at ```/deploy/redhat-testchain-deployment/peer-validators``` to make this node a validator
-- To run this script you need a ```moniker``` of any orchestrator from the chain so that some tokens can be transffered to your validator.
+- To run this script you need a ```mnemonic``` of any orchestrator from the chain so that some tokens can be transffered to your validator.
 ```bash
 bash makeValidator.sh
 ```
@@ -19,7 +19,7 @@ bash makeValidator.sh
 - Now we have to start an orchestrator 
 - first we have to generate some delegator keys
 ```bash
-gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_PHRASE" --fees=1footoken
+gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_PHRASE" --fees=1footoken 
 ```
 - It will generate a cosmos address and ethereum address as your delegator keys
 - Now you have to fund some tokens to you delegator for that run the following command.
@@ -39,3 +39,8 @@ gbt orchestrator \
         --fees="1stake" \
         --gravity-contract-address="0x330122273ffF8A31E8B5EAF2099cbFF881c9eEB7"
 ```
+---
+### Note
+- Your Gravity directory will be named as per your testchain name.
+- You can find  all required information regarding validator, orchestrator and ethereum inside that folder.
+- Folder structure is ```~/"YOUR-TESTCHAIN-NAME"/gravity```
