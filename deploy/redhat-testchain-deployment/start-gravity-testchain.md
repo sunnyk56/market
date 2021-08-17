@@ -11,7 +11,7 @@ bash init.sh
 cd /go/src/onomyprotocol/gravity-bridge/solidity
 ```
 - Now we'll deploy contract and save it in contract file in our root folder.
-- You have to change ```COSMOS-RPC```, ```ETH-RPC``` endpoints and your ```ETH_PRIVATE_KEY``` accordingly.
+- You have to change ```COSMOS-RPC``` ```ex: http://localhost:26657``` , ```ETH-RPC``` ```ex: http://localhost:8545``` endpoints and your ```ETH_PRIVATE_KEY``` accordingly.
 ```bash
 npx ts-node \
     contract-deployer.ts \
@@ -27,13 +27,13 @@ cat ~/contract
 ```
 - save these information safe you'll need them to start the orchestrator.
 - Now we'll start the orchestrator.
-- You have to edit the ```cosoms-phrase, cosmos-grpc, ethereum-rpc, ethereum-key and gravity-contract-address``` accordingly.
+- You have to edit the ```cosoms-phrase, cosmos-grpc ```ex: http://localhost:9090/```, ethereum-rpc ```ex: http://localhost:8545/```, ethereum-key and gravity-contract-address``` accordingly.
 ```bash
 gbt orchestrator \
         --cosmos-phrase="steel demand crouch dwarf vast current erosion print kiwi educate ridge world spirit live wine topic soap dash connect innocent virtual patrol into carry" \
-        --cosmos-grpc="http://145.40.102.9:9090/" \
-        --ethereum-key="0x931564541290f17ed6338616293c1d77a106e771203f82dd3e67bcb8a60ab381" \
-        --ethereum-rpc="http://139.178.81.233:8545" \
+        --cosmos-grpc="cosmos-grpc" \
+        --ethereum-key="ethereum-key" \
+        --ethereum-rpc="ethereum-rpc" \
         --fees="1stake" \
         --gravity-contract-address="0x330122273ffF8A31E8B5EAF2099cbFF881c9eEB7"
 ```
@@ -47,8 +47,8 @@ gbt orchestrator \
 - You have to pass some basic information to the other validators so that they can join your testchain.
   - Testchain Name
   - Your ```node-id```
-  - Your orchestrator ```mnemonic```
-  - Your ip
+  - Your orchestrator ```mnemonic``` (We are passing this mnemonic so that the next validator can have some token from us to start testing, this can be changed in future by using faucet to provide tokens)
+  - Your machine ```public ip``` on which testchain is hosted.
   - Deployed ```Gravity-contract address```
-  - Your ```ETHGenesis.json``` file which you have used to start the ethereum testchain
+  - Your ```ETHGenesis.json``` file and ```machine-public-ip``` which you have used to start the ethereum testchain
   - Ethereum-RPC address

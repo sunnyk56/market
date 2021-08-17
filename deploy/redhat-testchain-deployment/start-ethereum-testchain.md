@@ -49,12 +49,12 @@ geth --rpc --rpcport "8545" --networkid 15 console 2>> myEth2.log
 ```bash
 geth attach ~/.ethereum/geth.ipc
 ```
-- Now generate the enode info with following coomand.
+- Now view the enode info with following command.
 ```bash
 admin.nodeInfo.enode
 ```
-- Send this ```enode``` and your ```IP``` to the master so that this node can be added as a peernode.
-- check whether you are added as peer-node or not in by running the following command in ```geth.ipc```.
+- Send this ```enode``` and your ```MACHINE_PUBLIC_IP``` to the master so that this node can be added as a peernode.
+- check whether you are added as peer-node or not in the testchain by running the following command in ```geth.ipc```.
 ```bash
 admin.peers
 ```

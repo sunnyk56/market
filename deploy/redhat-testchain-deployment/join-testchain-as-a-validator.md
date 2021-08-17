@@ -1,14 +1,13 @@
 # Steps to follow to join a gravity testchain with one validator and one orchestrator
+## Step to start a full node
 - First we have to join the testchain as a full node.
 - Run the following .sh file to start a full node.
 - To run this script you require ```node-id``` and ```ip``` of any validator of the chain to add it as a seed to connect to.
 ```bash
 bash init.sh
 ```
-- Now we have a full node connected to testchain and syncing, but still this node is not a validator node.
-```bash
-bash init.sh
-```
+- Now we have a full node connected to testchain and syncing, but still this node is not a validator node. If you want to make it a vaidator wait for it to get completely synced with the chain then follow below steps.
+## Steps to make full node a validator node
 - To make this node a validator node we have to perform a create-validator transaction.
 - Run the ```makeValidator.sh``` shell script present at ```/deploy/redhat-testchain-deployment/peer-validators``` to make this node a validator
 - To run this script you need a ```mnemonic``` of any orchestrator from the chain so that some tokens can be transffered to your validator.
@@ -21,21 +20,21 @@ bash makeValidator.sh
 ```bash
 gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_PHRASE" --fees=1footoken 
 ```
-- It will generate a cosmos address and ethereum address as your delegator keys
+- It will generate a ```cosmos address, mnemonic, an ethereum address and it's private key```. Please save these information safe because we are going to use these in future as our delegator.
 - Now you have to fund some tokens to you delegator for that run the following command.
 ```bash
-gravity --home /root/testchain/gravity tx bank send $(gravity --home /root/testchain/gravity keys show -a orch1 --keyring-backend test) $YOUR_DELEGATOR_COSMOS_ADDRESS 1000000footoken --chain-id testchain --keyring-backend test -y
+gravity --home /root/testchain/gravity tx bank send $(gravity --home /root/testchain/gravity keys show -a orch --keyring-backend test) $YOUR_DELEGATOR_COSMOS_ADDRESS 1000000footoken --chain-id testchain --keyring-backend test -y
 ```
 - Now you have to start a ethereum full node for the running ethereum testchain, to start it follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md) then only move to next step.
 - You also have to fund some tokens to the generated Eth-account, you can use metamask for this purpose.
 - Now run the following command to start orchestrator.
-- You have to edit the ```cosoms-phrase, cosmos-grpc, ethereum-rpc, ethereum-key and gravity-contract-address``` accordingly.
+- You have to edit the ```cosoms-phrase, cosmos-grpc ```ex: http://localhost:9090/```, ethereum-rpc ```ex: http://localhost:8545/```, ethereum-key and gravity-contract-address``` accordingly.
 ```bash
 gbt orchestrator \
-        --cosmos-phrase="steel demand crouch dwarf vast current erosion print kiwi educate ridge world spirit live wine topic soap dash connect innocent virtual patrol into carry" \
-        --cosmos-grpc="http://145.40.102.9:9090/" \
-        --ethereum-key="0x931564541290f17ed6338616293c1d77a106e771203f82dd3e67bcb8a60ab381" \
-        --ethereum-rpc="http://139.178.81.233:8545" \
+        --cosmos-phrase="the-mnemonic-of-delegator-which-you-have-saved" \
+        --cosmos-grpc="$cosmos-grpc" \
+        --ethereum-key="private-key-of-the-delegator-which-you-have-saved" \
+        --ethereum-rpc="$ethereum-rpc" \
         --fees="1stake" \
         --gravity-contract-address="0x330122273ffF8A31E8B5EAF2099cbFF881c9eEB7"
 ```
