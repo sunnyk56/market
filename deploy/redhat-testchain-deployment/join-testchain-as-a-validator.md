@@ -16,6 +16,7 @@ bash makeValidator.sh
 ```
 - If everything goes well you will see the orchestrator key as output as well as the transactions. Then it will ask you to confirm the create-validator transaction and as soon as you confirm it a transaction log is generated and your full node will become a validator in chain.
 - To confirm whether you have joined the testchain as a validator or not go the ```"GRAVITY-RPC"/validators``` on any browser and you can find your validator-address in the validtor-set.
+## Start orchestrator
 - Now we have to start an orchestrator 
 - first we have to generate some delegator keys
 ```bash
