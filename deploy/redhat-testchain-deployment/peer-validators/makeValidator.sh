@@ -5,9 +5,7 @@ echo "building environment"
 # Initial dir
 CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
-echo "Enter chain-id"
-read chainid
-CHAINID=$chainid
+CHAINID=(jq .chain_id ~/val_info.json | sed 's#\"##g')
 # Name of the gravity artifact
 GRAVITY=gravity
 # The name of the gravity node
@@ -29,17 +27,15 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-echo "Enter validator name"
-read validator
-GRAVITY_VALIDATOR_NAME=$validator
+GRAVITY_VALIDATOR_NAME=(jq .validator_name ~/val_info.json | sed 's#\"##g')
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
 # Moniker of orchestrator
-echo "Please enter moniker to fetch tokens from"
-read moniker
-MONIKER_ORCH="$moniker"
+echo "Please enter mnemonic of any orchestrator running in testchain to import tokens from"
+read mnemonic
+MONIKER_ORCH="$mnemonic"
 
 # Recover the orchestrator to take some token from it
 $GRAVITY $GRAVITY_HOME_FLAG keys add orch --recover $GRAVITY_KEYRING_FLAG <<< $MONIKER_ORCH

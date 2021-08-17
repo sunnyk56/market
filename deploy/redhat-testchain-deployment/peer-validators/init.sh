@@ -4,6 +4,7 @@ set -eu
 echo "building environment"
 # Initial dir
 CURRENT_WORKING_DIR=~
+
 # Name of the network to bootstrap
 echo "Enter chain-id"
 read chainid
@@ -32,10 +33,6 @@ GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 echo "Enter validator name"
 read validator
 GRAVITY_VALIDATOR_NAME=$validator
-# The name of the gravity orchestrator/validator
-echo "Enter orchestrator name"
-read orchestrator
-GRAVITY_ORCHESTRATOR_NAME=$orchestrator
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
@@ -45,6 +42,12 @@ read seedline
 echo "Please enter ip of validator for which you have added node-id"
 read ip
 SEED="$seedline@$ip:26656"
+# make a file to store validator information
+echo "{
+        "validator_name": ""
+        "chain_id": ""
+        "orchestrator_name": ""
+}" >> ~/val_info.json
 
 # ------------------ Init gravity ------------------
 
@@ -85,6 +88,9 @@ fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g
 fsed 's#seeds = ""#seeds = "'$SEED'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
+# Save validator-info
+fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  ~/val_info.json
+fsed 's#"chain-id": ""#"chain-id": "'$CHAINID'"#g'  ~/val_info.json
 
 
 $GRAVITY $GRAVITY_HOME_FLAG start &

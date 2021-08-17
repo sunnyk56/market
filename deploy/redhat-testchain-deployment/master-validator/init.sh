@@ -3,7 +3,7 @@ set -eu
 
 echo "building environment"
 # Initial dir
-CURRENT_WORKING_DIR=~
+
 # Name of the network to bootstrap
 echo "Enter chain-id"
 read chainid
@@ -41,6 +41,12 @@ NORMAL_DENOM="footoken"
 
 # The host of ethereum node
 ETH_HOST="0.0.0.0"
+CURRENT_WORKING_DIR=~
+echo "{
+        "validator_name": ""
+        "chain_id": ""
+        "orchestrator_name": ""
+}" >> ~/val_info.json
 
 # ------------------ Init gravity ------------------
 
@@ -110,6 +116,13 @@ fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
 fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
+# Save validator-info
+fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  ~/val_info.json
+fsed 's#"chain-id": ""#"chain-id": "'$CHAINID'"#g'  ~/val_info.json
+
+# Save validator-info
+fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  ~/val_info.json
+fsed 's#"chain-id": ""#"chain-id": "'$CHAINID'"#g'  ~/val_info.json
 
 echo "Please save this node-id to connect other validators to the chain"
 echo $($GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id)

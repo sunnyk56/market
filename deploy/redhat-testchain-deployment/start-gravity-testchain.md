@@ -4,7 +4,7 @@
 bash init.sh
 ```
 - this will start a testchain with one validator.
-- Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your system to system in which you want to start Ethereum testchain.
+- Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
 - once our Ethereum testchain started we'll deploy the smart contract.
 - first we'll open the folder where contracts are placed.
 ```bash
@@ -15,9 +15,9 @@ cd /go/src/onomyprotocol/gravity-bridge/solidity
 ```bash
 npx ts-node \
     contract-deployer.ts \
-    --cosmos-node="http://139.178.81.235:26657" \
-    --eth-node="http://139.178.81.233:8545" \
-    --eth-privkey="0xcb40d418b204d1f6bc3264fcfac0db00301650b9d43544b970c6234780d1ee61" \
+    --cosmos-node="$COSMOS-RPC" \
+    --eth-node="$ETH-RPC" \
+    --eth-privkey="$ETH_PRIVATE_KEY" \
     --contract=artifacts/contracts/Gravity.sol/Gravity.json \
     --test-mode=true >> /root/contract
 ```
