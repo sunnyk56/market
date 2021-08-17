@@ -20,7 +20,7 @@ bash makeValidator.sh
 - Now we have to start an orchestrator 
 - first we have to generate some delegator keys
 ```bash
-gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_PHRASE" --fees=1footoken 
+gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_MNEMONIC" --fees=1footoken 
 ```
 - It will generate a ```cosmos address, mnemonic, an ethereum address and it's private key```. Please save these information safe because we are going to use these in future as our delegator.
 - Now you have to fund some tokens to you delegator for that run the following command.
