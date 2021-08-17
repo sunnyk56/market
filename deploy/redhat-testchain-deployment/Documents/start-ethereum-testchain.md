@@ -58,4 +58,4 @@ admin.nodeInfo.enode
 ```bash
 admin.peers
 ```
-- once this is done revert to the remaining [join-testchain-as-a-validator steps](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/join-testchain-as-a-validator.md#steps-to-make-full-node-a-validator-node).
+- once this is done revert to the remaining [join-testchain-as-a-validator steps](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/join-testchain-as-a-validator.md#start-orchestrator).
