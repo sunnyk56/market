@@ -27,13 +27,13 @@ cat ~/contract
 ```
 - save these information safe you'll need them to start the orchestrator.
 - Now we'll start the orchestrator.
-- You have to edit the ```cosoms-phrase, cosmos-grpc ```ex: http://localhost:9090/```, ethereum-rpc ```ex: http://localhost:8545/```, ethereum-key and gravity-contract-address``` accordingly.
+- You have to edit the ```cosoms-phrase, cosmos-grpc ex: http://localhost:9090, ethereum-rpc ex: http://localhost:8545, ethereum-key and gravity-contract-address``` accordingly.
 ```bash
 gbt orchestrator \
-        --cosmos-phrase="steel demand crouch dwarf vast current erosion print kiwi educate ridge world spirit live wine topic soap dash connect innocent virtual patrol into carry" \
-        --cosmos-grpc="cosmos-grpc" \
-        --ethereum-key="ethereum-key" \
-        --ethereum-rpc="ethereum-rpc" \
+        --cosmos-phrase="YOUR_ORCHESTRATOR_MNEMONIC" \
+        --cosmos-grpc="$cosmos-grpc" \
+        --ethereum-key="$ethereum-key" \
+        --ethereum-rpc="$ethereum-rpc" \
         --fees="1stake" \
         --gravity-contract-address="0x330122273ffF8A31E8B5EAF2099cbFF881c9eEB7"
 ```
