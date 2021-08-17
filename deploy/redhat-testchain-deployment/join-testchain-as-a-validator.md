@@ -28,7 +28,7 @@ gravity --home "YOUR_GRAVITY_DATA_DIR" tx bank send $(gravity --home "YOUR_GRAVI
 - Now you have to start a ethereum full node for the running ethereum testchain, to start it follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md#steps-to-follow-to-start-a-ethereum-testchain-full-node) then only move to next step.
 - You also have to fund some tokens to the generated Eth-account, you can use metamask for this purpose.
 - Now run the following command to start orchestrator.
-- You have to edit the ```cosoms-phrase, cosmos-grpc ex: http://localhost:9090, ethereum-rpc ex: http://localhost:8545, ethereum-key and gravity-contract-address``` accordingly.
+- You have to edit the ```cosoms-phrase, cosmos-grpc ex: http://localhost:9090, ethereum-rpc ex: http://"Your-eth-testchain-IP":8545, ethereum-key and gravity-contract-address``` accordingly.
 ```bash
 gbt orchestrator \
         --cosmos-phrase="the-mnemonic-of-delegator-which-you-have-saved" \

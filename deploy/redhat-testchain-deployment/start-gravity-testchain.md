@@ -11,7 +11,7 @@ bash init.sh
 cd /go/src/onomyprotocol/gravity-bridge/solidity
 ```
 - Now we'll deploy contract and save it in contract file in our root folder.
-- You have to change ```COSMOS-RPC``` ```ex: http://localhost:26657``` , ```ETH-RPC``` ```ex: http://localhost:8545``` endpoints and your ```ETH_PRIVATE_KEY``` accordingly.
+- You have to change ```COSMOS-RPC``` ```ex: http://localhost:26657``` , ```ETH-RPC``` ```ex: http://"Your-eth-testchain-IP":8545``` endpoints and your ```ETH_PRIVATE_KEY``` accordingly.
 ```bash
 npx ts-node \
     contract-deployer.ts \
@@ -27,7 +27,7 @@ cat ~/contract
 ```
 - save these information safe you'll need them to start the orchestrator.
 - Now we'll start the orchestrator.
-- You have to edit the ```cosoms-phrase```, ```COSMOS-GRPC ex: http://localhost:9090```, ```ETH-RPC ex: http://localhost:8545```, ```ethereum-key and gravity-contract-address``` accordingly.
+- You have to edit the ```cosoms-phrase```, ```COSMOS-GRPC ex: http://localhost:9090```, ```ETH-RPC ex: http://"Your-eth-testchain-IP":8545```, ```ethereum-key and gravity-contract-address``` accordingly.
 ```bash
 gbt orchestrator \
         --cosmos-phrase="YOUR_ORCHESTRATOR_MNEMONIC" \
