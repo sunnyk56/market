@@ -1,5 +1,5 @@
 echo "-----------Installing_dependencies---------------"
-yum -y install curl gcc gcc-c++ kernel-devel make ca-certificates tar git jq python3 nano screen wget
+yum -y install curl gcc gcc-c++ kernel-devel make ca-certificates tar git jq python3 nano wget
 dnf -y copr enable ngompa/musl-libc
 dnf -y install musl-devel
 dnf -y install musl-gcc
@@ -11,11 +11,11 @@ dnf -y install moreutils
 
 
 echo "--------------install_golang---------------------------"
-RUN curl https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz --output go.tar.gz
-RUN tar -C /usr/local -xzf go.tar.gz
-ENV PATH="/usr/local/go/bin:$PATH"
-ENV GOPATH=/go
-ENV PATH=$PATH:$GOPATH/bin
+curl https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz --output go.tar.gz
+tar -C /usr/local -xzf go.tar.gz
+PATH="/usr/local/go/bin:$PATH"
+GOPATH=/go
+PATH=$PATH:$GOPATH/bin
 
 echo "----------------cloning_repository-------------------"
 GRAVITY_DIR=/go/src/github.com/onomyprotocol/gravity-bridge
@@ -48,7 +48,7 @@ yum -y install nodejs
 cd $GRAVITY_DIR/solidity
 npm ci
 chmod -R +x scripts
-npm run typechain
+npm typechain
 
 echo "-------------------making_geth-----------------------"
 cd ~

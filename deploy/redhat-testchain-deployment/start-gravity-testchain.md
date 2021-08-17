@@ -52,3 +52,9 @@ gbt orchestrator \
   - Deployed ```Gravity-contract address```
   - Your ```ETHGenesis.json``` file and ```machine-public-ip``` which you have used to start the ethereum testchain
   - Ethereum-RPC address
+
+---
+GRAVITY-RPC : http://"YOUR_MACHINE_PUBLIC_IP":26657
+GRVAITY_GRPC : http://"YOUR_MACHINE_PUBLIC_IP":9090
+ETHEREUM_RPC : http://"YOUR_MACHINE_PUBLIC_IP":8545
+----
