@@ -12,4 +12,4 @@ sudo bash bin.sh
 - [To start gravity testchain](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/start-gravity-testchain.md) 
 - [To start ethereum-testchain](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/start-ethereum-testchain.md)
 - [To join testchain as a validator](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/join-testchain-as-a-validator.md)
-- [To test coss-transaction (eth-to-cosmos or cosmos-to-eth) in your gravity testchain](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/testing-gravity.md).
+- [To test cross-transaction (eth-to-cosmos or cosmos-to-eth) in your gravity testchain](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/testing-gravity.md).
