@@ -45,7 +45,7 @@ geth --identity "GravityEthereum" --networkid 15 init ETHGenesis.json
 ```bash
 geth --rpc --rpcport "8545" --networkid 15 console 2>> myEth2.log
 ```
-- Now we have attach the ```geth.ipc```.
+- Now we have to attach the ```geth.ipc```.
 ```bash
 geth attach ~/.ethereum/geth.ipc
 ```
@@ -58,4 +58,4 @@ admin.nodeInfo.enode
 ```bash
 admin.peers
 ```
-- once this is done revert to the remaining [join-testchain-as-a-validator steps](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/join-testchain-as-a-validator.md#start-orchestrator).
+- once this is done revert to the remaining [join-testchain-as-a-validator steps](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/join-testchain-as-a-validator.md#start-orchestrator).
