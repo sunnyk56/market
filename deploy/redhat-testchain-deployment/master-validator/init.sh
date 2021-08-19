@@ -3,6 +3,7 @@ set -eu
 
 echo "building environment"
 # Initial dir
+CURRENT_WORKING_DIR=~
 
 # Name of the network to bootstrap
 echo "Enter chain-id"
@@ -41,7 +42,6 @@ NORMAL_DENOM="footoken"
 
 # The host of ethereum node
 ETH_HOST="0.0.0.0"
-CURRENT_WORKING_DIR=~
 echo "{
         "validator_name": ""
         "chain_id": ""
