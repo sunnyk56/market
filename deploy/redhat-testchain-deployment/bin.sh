@@ -48,12 +48,12 @@ yum -y install nodejs
 cd $GRAVITY_DIR/solidity
 npm ci
 chmod -R +x scripts
-npm typechain
+npm run typechain
 
 echo "-------------------making_geth-----------------------"
 cd ~
 yum -y -yq update
-yum -y -y install gmp-devel
+yum -y install gmp-devel
 git clone https://github.com/ethereum/go-ethereum
 cd go-ethereum
 make geth
