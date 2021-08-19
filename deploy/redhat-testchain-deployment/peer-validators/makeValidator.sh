@@ -5,7 +5,9 @@ echo "building environment"
 # Initial dir
 CURRENT_WORKING_DIR=~
 # Name of the network to bootstrap
-CHAINID=(jq .chain_id ~/val_info.json | sed 's#\"##g')
+echo "Enter chain-id"
+read chainid
+CHAINID=$chainid
 # Name of the gravity artifact
 GRAVITY=gravity
 # The name of the gravity node
@@ -27,7 +29,9 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-GRAVITY_VALIDATOR_NAME=(jq .validator_name ~/val_info.json | sed 's#\"##g')
+echo "Enter validator name that you have entered while run init.sh"
+read validator
+GRAVITY_VALIDATOR_NAME=$validator
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
