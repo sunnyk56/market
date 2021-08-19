@@ -60,4 +60,4 @@ make geth
 cp build/bin/geth /usr/bin/geth
 
 echo "------------removing_installation_files------------------"
-rm -rf go-ethereum go.tar.gz $GRAVITY_DIR
+rm -rf go-ethereum go.tar.gz
