@@ -3,7 +3,7 @@ set -eu
 
 echo "building environment"
 # Initial dir
-CURRENT_WORKING_DIR=~
+CURRENT_WORKING_DIR=$HOME
 
 # Name of the network to bootstrap
 echo "Enter chain-id"
@@ -43,11 +43,11 @@ echo "Please enter ip of validator for which you have added node-id"
 read ip
 SEED="$seedline@$ip:26656"
 # make a file to store validator information
-echo "{
-        "validator_name": ""
-        "chain_id": ""
+echo '{
+        "validator_name": "",
+        "chain_id": "",
         "orchestrator_name": ""
-}" >> ~/val_info.json
+}' > $HOME/val_info.json
 
 # ------------------ Init gravity ------------------
 
@@ -61,14 +61,14 @@ $GRAVITY $GRAVITY_HOME_FLAG $GRAVITY_CHAINID_FLAG init $GRAVITY_NODE_NAME
 
 echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
-jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
+jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> $HOME/validator-phrases
 
 
 #copy master genesis file 
 rm $GRAVITY_HOME_CONFIG/genesis.json
-wget http://$ip:26657/genesis? -O raw.json
-jq .result.genesis raw.json >> $GRAVITY_HOME_CONFIG/genesis.json
-rm -rf raw.json
+wget http://$ip:26657/genesis? -O $HOME/raw.json
+jq .result.genesis $HOME/raw.json >> $GRAVITY_HOME_CONFIG/genesis.json
+rm -rf $HOME/raw.json
 
 echo "Exposing ports and APIs of the $GRAVITY_NODE_NAME"
 # Switch sed command in the case of linux
@@ -89,8 +89,8 @@ fsed 's#seeds = ""#seeds = "'$SEED'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
 # Save validator-info
-fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  ~/val_info.json
-fsed 's#"chain-id": ""#"chain-id": "'$CHAINID'"#g'  ~/val_info.json
+fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  $HOME/val_info.json
+fsed 's#"chain_id": ""#"chain_id": "'$CHAINID'"#g'  $HOME/val_info.json
 
 
 $GRAVITY $GRAVITY_HOME_FLAG start &

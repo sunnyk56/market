@@ -3,11 +3,11 @@ set -eu
 
 echo "building environment"
 # Initial dir
-CURRENT_WORKING_DIR=~
+CURRENT_WORKING_DIR=$HOME
 # Name of the network to bootstrap
-echo "Enter chain-id"
-read chainid
-CHAINID=$chainid
+#echo "Enter chain-id"
+#read chainid
+CHAINID=$(jq .chain_id $HOME/val_info.json | sed 's#\"##g')
 # Name of the gravity artifact
 GRAVITY=gravity
 # The name of the gravity node
@@ -29,9 +29,9 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-echo "Enter validator name that you have entered while run init.sh"
-read validator
-GRAVITY_VALIDATOR_NAME=$validator
+#echo "Enter validator name that you have entered while run init.sh"
+#read validator
+GRAVITY_VALIDATOR_NAME=$(jq .validator_name $HOME/val_info.json | sed 's#\"##g')
 # Gravity chain demons
 STAKE_DENOM="stake"
 #NORMAL_DENOM="samoleans"
@@ -50,7 +50,7 @@ $GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show
 # Transfer some footoken to new validator
 $GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG) 200000000footoken $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
 
-# Stor the public key of validator
+# Store the public key of validator
 PUB_KEY=$($GRAVITY $GRAVITY_HOME_FLAG tendermint show-validator)
 
 # Do the create validator transaction

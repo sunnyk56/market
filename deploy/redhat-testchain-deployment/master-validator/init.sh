@@ -3,7 +3,7 @@ set -eu
 
 echo "building environment"
 # Initial dir
-CURRENT_WORKING_DIR=~
+CURRENT_WORKING_DIR=$HOME
 
 # Name of the network to bootstrap
 echo "Enter chain-id"
@@ -42,11 +42,11 @@ NORMAL_DENOM="footoken"
 
 # The host of ethereum node
 ETH_HOST="0.0.0.0"
-echo "{
-        "validator_name": ""
-        "chain_id": ""
+echo '{
+        "validator_name": "",
+        "chain_id": "",
         "orchestrator_name": ""
-}" >> ~/val_info.json
+}' > $HOME/val_info.json
 
 # ------------------ Init gravity ------------------
 
@@ -61,20 +61,20 @@ $GRAVITY $GRAVITY_HOME_FLAG $GRAVITY_CHAINID_FLAG init $GRAVITY_NODE_NAME
 
 
 # add in denom metadata for both native tokens
-jq '.app_state.bank.denom_metadata += [{"base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]}, {"base": "stake", display: "mstake", "description": "A staking test token", "denom_units": [{"denom": "stake", "exponent": 0}, {"denom": "mstake", "exponent": 6}]}]' $GRAVITY_HOME_CONFIG/genesis.json > /metadata-genesis.json
+jq '.app_state.bank.denom_metadata += [{"base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]}, {"base": "stake", display: "mstake", "description": "A staking test token", "denom_units": [{"denom": "stake", "exponent": 0}, {"denom": "mstake", "exponent": 6}]}]' $GRAVITY_HOME_CONFIG/genesis.json > $HOME/metadata-genesis.json
 
 # a 60 second voting period to allow us to pass governance proposals in the tests
-jq '.app_state.gov.voting_params.voting_period = "60s"' /metadata-genesis.json > /edited-genesis.json
-mv /edited-genesis.json /genesis.json
-mv /genesis.json $GRAVITY_HOME_CONFIG/genesis.json
+jq '.app_state.gov.voting_params.voting_period = "60s"' $HOME/metadata-genesis.json > $HOME/edited-genesis.json
+mv $HOME/edited-genesis.json $HOME/genesis.json
+mv $HOME/genesis.json $GRAVITY_HOME_CONFIG/genesis.json
 
 echo "Add validator key"
 $GRAVITY $GRAVITY_HOME_FLAG keys add $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG --output json | jq . >> $GRAVITY_HOME/validator_key.json
-jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> /validator-phrases
+jq .mnemonic $GRAVITY_HOME/validator_key.json | sed 's#\"##g' >> $HOME/validator-phrases
 
 echo "Generating orchestrator keys"
 $GRAVITY $GRAVITY_HOME_FLAG keys add --output=json $GRAVITY_ORCHESTRATOR_NAME $GRAVITY_KEYRING_FLAG | jq . >> $GRAVITY_HOME/orchestrator_key.json
-jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> /orchestrator-phrases
+jq .mnemonic $GRAVITY_HOME/orchestrator_key.json | sed 's#\"##g' >> $HOME/orchestrator-phrases
 
 echo "Adding validator addresses to genesis files"
 $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG keys show $GRAVITY_VALIDATOR_NAME -a $GRAVITY_KEYRING_FLAG)" $GRAVITY_GENESIS_COINS
@@ -89,9 +89,9 @@ $GRAVITY $GRAVITY_HOME_FLAG add-genesis-account "$($GRAVITY $GRAVITY_HOME_FLAG k
 
 echo "Generating ethereum keys"
 $GRAVITY $GRAVITY_HOME_FLAG eth_keys add --output=json | jq . >> $GRAVITY_HOME/eth_key.json
-echo "private: $(jq .private_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" > /validator-eth-keys
-echo "public: $(jq .public_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
-echo "address: $(jq .address $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> /validator-eth-keys
+echo "private: $(jq .private_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" > $HOME/validator-eth-keys
+echo "public: $(jq .public_key $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> $HOME/validator-eth-keys
+echo "address: $(jq .address $GRAVITY_HOME/eth_key.json | sed 's#\"##g')" >> $HOME/validator-eth-keys
 
 echo "Creating gentxs"
 $GRAVITY $GRAVITY_HOME_FLAG gentx --ip $GRAVITY_HOST $GRAVITY_VALIDATOR_NAME 100000000000$STAKE_DENOM "$(jq -r .address $GRAVITY_HOME/eth_key.json)" "$(jq -r .address $GRAVITY_HOME/orchestrator_key.json)" $GRAVITY_KEYRING_FLAG $GRAVITY_CHAINID_FLAG
@@ -116,19 +116,16 @@ fsed 's#addr_book_strict = true#addr_book_strict = false#g' $GRAVITY_NODE_CONFIG
 fsed 's#external_address = ""#external_address = "tcp://'$GRAVITY_HOST:26656'"#g' $GRAVITY_NODE_CONFIG
 fsed 's#enable = false#enable = true#g' $GRAVITY_APP_CONFIG
 fsed 's#swagger = false#swagger = true#g' $GRAVITY_APP_CONFIG
-# Save validator-info
-fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  ~/val_info.json
-fsed 's#"chain-id": ""#"chain-id": "'$CHAINID'"#g'  ~/val_info.json
 
 # Save validator-info
-fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  ~/val_info.json
-fsed 's#"chain-id": ""#"chain-id": "'$CHAINID'"#g'  ~/val_info.json
+fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  $HOME/val_info.json
+fsed 's#"chain_id": ""#"chain_id": "'$CHAINID'"#g'  $HOME/val_info.json
 
 echo "Please save this node-id to connect other validators to the chain"
 echo $($GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id)
 sleep 10
 
 echo "Adding initial ethereum value for gravity validator"
-jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" ~/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json | sponge ~/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json
+jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json | sponge $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json
 
 $GRAVITY $GRAVITY_HOME_FLAG start &
