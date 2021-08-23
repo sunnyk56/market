@@ -25,13 +25,16 @@ gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_MNEMO
 - It will generate a ```cosmos address, mnemonic, an ethereum address and it's private key```. Please save these information safe because we are going to use these in future as our delegator.
 - Now you have to fund some tokens to you delegator for that run the following command.
 ```bash
-gravity --home "YOUR_GRAVITY_DATA_DIR" tx bank send $(gravity --home "YOUR_GRAVITY_DATA_DIR" keys show -a orch --keyring-backend test) $YOUR_DELEGATOR_COSMOS_ADDRESS 1000000footoken --chain-id testchain --keyring-backend test -y
+gravity --home YOUR_GRAVITY_DATA_DIR tx bank send $(gravity --home YOUR_GRAVITY_DATA_DIR keys show -a orch --keyring-backend test) $YOUR_DELEGATOR_COSMOS_ADDRESS 1000000stake --chain-id testchain --keyring-backend test -y
+
+gravity --home YOUR_GRAVITY_DATA_DIR tx bank send $(gravity --home YOUR_GRAVITY_DATA_DIR keys show -a orch --keyring-backend test) $YOUR_DELEGATOR_COSMOS_ADDRESS 1000000footoken --chain-id testchain --keyring-backend test -y
 ```
-- Now you have to start a ethereum full node for the running ethereum testchain, to start it follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md#steps-to-follow-to-start-a-ethereum-testchain-full-node) then only move to next step.
+- Now you have to start a ethereum full node for the running ethereum testchain, if you want to go with rinkeby `geth --rinkeby --syncmode "light"  --rpc --rpcport "8545"` or to start with your own etherum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md#steps-to-follow-to-start-a-ethereum-testchain-full-node) then only move to next step.
 - You also have to fund some tokens to the generated Eth-account, you can use metamask for this purpose.
 - Now run the following command to start orchestrator.
 - You have to edit the ```cosoms-phrase, cosmos-grpc ex: http://localhost:9090, ethereum-rpc ex: http://"Your-eth-testchain-IP":8545, ethereum-key and gravity-contract-address``` accordingly.
 ```bash
+gbt init
 gbt orchestrator \
         --cosmos-phrase="the-mnemonic-of-delegator-which-you-have-saved" \
         --cosmos-grpc="$cosmos-grpc" \
