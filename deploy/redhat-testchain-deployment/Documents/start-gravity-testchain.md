@@ -1,9 +1,9 @@
 # Steps to follow to start a gravity testchain with one validator and one orchestrator
 - Use ```init.sh``` file present in ```/deploy/redhat-testchain-deployment/master-validator``` to start the validator node.
-```bash
-bash init.sh
-```
-- this will start a testchain with one validator.
+    ```bash
+        bash init.sh
+    ```
+    - this will start a testchain with one validator.
 - Now next step is run Ethereum node. So there is two way 
     - Launch eth node with rinkeny network
         -  Open new terminal, use either screen command  like screen -S etherum-node
