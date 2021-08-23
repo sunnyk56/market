@@ -10,13 +10,13 @@ bash init.sh
         -  Run this command `geth --rinkeby --syncmode "light"  --rpc --rpcport "8545"` 
         -  wait 2-4 min it will syncing of block
     - Launch your own etherum network, to do this follow these steps 
-        - Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link]          (https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
-- once our Ethereum testchain started we'll deploy the smart contract.
+        - Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```$HOME/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
+- Next step is deploy the smart contract.
 - first we'll open the folder where contracts are placed.
 ```bash
 cd /go/src/onomyprotocol/gravity-bridge/solidity
 ```
-- Now we'll deploy contract and save it in contract file in our root folder.
+- Now we'll deploy contract and save it in contract file in our home directory.
 - You have to change ```COSMOS-RPC``` ```ex: http://localhost:26657``` , ```ETH-RPC``` ```ex: http://"Your-eth-testchain-IP":8545``` endpoints and your ```ETH_PRIVATE_KEY``` accordingly.
 ```bash
 npx ts-node \
@@ -25,7 +25,7 @@ npx ts-node \
     --eth-node="$ETH-RPC" \
     --eth-privkey="$ETH_PRIVATE_KEY" \
     --contract=artifacts/contracts/Gravity.sol/Gravity.json \
-    --test-mode=true >> /root/contract
+    --test-mode=true >> $HOME/contracts
 ```
 - you can check the contract information.
 ```bash
