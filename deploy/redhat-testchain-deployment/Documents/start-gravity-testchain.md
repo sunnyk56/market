@@ -14,8 +14,9 @@ bash init.sh
 - Next step is deploy the smart contract.
 - first we'll open the folder where contracts are placed.
 ```bash
-cd /go/src/onomyprotocol/gravity-bridge/solidity
+cd $HOME/gravity/solidity
 ```
+- Firstly need to change the path of ERC20 artifact contracts in the `contract-deployer.ts`, there is default path is set `/gravity/solidity/artifacts/contracts/TestERC20A.sol/TestERC20A.json`. So if you have add your Home directry path at the starting for example my Home director is root then path will look like `/root/gravity/solidity/artifacts/contracts/TestERC20A.sol/TestERC20A.json`. update same for TestERC20B and TestERC20C also.
 - Now we'll deploy contract and save it in contract file in our home directory.
 - You have to change ```COSMOS-RPC``` ```ex: http://localhost:26657``` , ```ETH-RPC``` ```ex: http://"Your-eth-testchain-IP":8545``` endpoints and your ```ETH_PRIVATE_KEY``` accordingly.
 ```bash
@@ -29,11 +30,12 @@ npx ts-node \
 ```
 - you can check the contract information.
 ```bash
-cat ~/contract
+cat $HOME/contracts
 ```
 - save these information safe you'll need them to start the orchestrator.
 - Now we'll start the orchestrator.
 - You have to edit the ```cosoms-phrase```, ```COSMOS-GRPC ex: http://localhost:9090```, ```ETH-RPC ex: http://"Your-eth-testchain-IP":8545```, ```ethereum-key and gravity-contract-address``` accordingly.
+- Make sure this ethereum account have some ether.
 ```bash
 gbt orchestrator \
         --cosmos-phrase="YOUR_ORCHESTRATOR_MNEMONIC" \
