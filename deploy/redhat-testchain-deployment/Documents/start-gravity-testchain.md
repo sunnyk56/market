@@ -45,21 +45,22 @@ gbt orchestrator \
         --fees="1stake" \
         --gravity-contract-address="0x330122273ffF8A31E8B5EAF2099cbFF881c9eEB7"
 ```
-- Now your testchain is up and running with one validator and one orchestrator
+- Now your testchain is up and running with one validator, orchestrator and etherum node
 
 ---
-### Note
+### Important Note
 - Your Gravity directory will be named as per your testchain name.
 - You can find  all required information regarding validator, orchestrator and ethereum inside that folder.
 - Folder structure is ```~/"YOUR-TESTCHAIN-NAME"/gravity```
 - You have to pass some basic information to the other validators so that they can join your testchain.
   - Testchain Name
-  - Your ```node-id```
+  - Your ```node-id```. You can get using this command `gravity $GRAVITY_HOME_FLAG tendermint show-node-id`
   - Your orchestrator ```mnemonic``` (We are passing this mnemonic so that the next validator can have some token from us to start testing, this can be changed in future by using faucet to provide tokens)
   - Your machine ```public ip``` on which testchain is hosted.
   - Deployed ```Gravity-contract address```
-  - Your ```ETHGenesis.json``` file and ```machine-public-ip``` which you have used to start the ethereum testchain
+  - If you have your own etherum testnet then ```ETHGenesis.json``` file and ```machine-public-ip``` which you have used to start the ethereum testchain network
   - Ethereum-RPC address
+  - Make sure following port open `26657/tcp 26656/tcp 9090/tcp 1317/tcp 8545/tcp 30303/tcp 30303/udp`
 
 ---
 - GRAVITY-RPC : http://"YOUR_MACHINE_PUBLIC_IP":26657
