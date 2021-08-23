@@ -4,7 +4,14 @@
 bash init.sh
 ```
 - this will start a testchain with one validator.
-- Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
+    -  Open new terminal, use either screen command  like screen -S etherum-node
+    -  Run this command `geth --rinkeby --syncmode "light"  --rpc --rpcport "8545"` 
+    -  wait 2-4 min it will syncing of block
+ 
+- Now next step is run Ethereum node. So there is two way 
+    - Launch eth node with rinkeny network
+    - Launch your own etherum network, to do this follow these steps 
+        - Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link]          (https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```~/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
 - once our Ethereum testchain started we'll deploy the smart contract.
 - first we'll open the folder where contracts are placed.
 ```bash
