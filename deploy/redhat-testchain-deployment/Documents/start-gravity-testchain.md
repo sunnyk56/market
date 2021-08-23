@@ -5,7 +5,7 @@
     ```
     - this will start a testchain with one validator.
 - Now next step is run Ethereum node. So there is two way 
-    - Launch eth node with rinkeny network
+    - Launch eth node with rinkeby network
         -  Open new terminal, use either screen command  like screen -S etherum-node
         -  Run this command `geth --rinkeby --syncmode "light"  --rpc --rpcport "8545"` 
         -  wait 2-4 min it will syncing of block
