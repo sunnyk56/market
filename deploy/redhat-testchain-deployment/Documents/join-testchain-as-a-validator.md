@@ -20,6 +20,7 @@ bash makeValidator.sh
 - Now we have to start an orchestrator 
 - first we have to generate some delegator keys
 ```bash
+gbt init
 gbt keys register-orchestrator-address --validator-phrase "$YOUR_VALIDATOR_MNEMONIC" --fees=1footoken 
 ```
 - It will generate a ```cosmos address, mnemonic, an ethereum address and it's private key```. Please save these information safe because we are going to use these in future as our delegator.
@@ -34,7 +35,6 @@ gravity --home YOUR_GRAVITY_DATA_DIR tx bank send $(gravity --home YOUR_GRAVITY_
 - Now run the following command to start orchestrator.
 - You have to edit the ```cosoms-phrase, cosmos-grpc ex: http://localhost:9090, ethereum-rpc ex: http://"Your-eth-testchain-IP":8545, ethereum-key and gravity-contract-address``` accordingly.
 ```bash
-gbt init
 gbt orchestrator \
         --cosmos-phrase="the-mnemonic-of-delegator-which-you-have-saved" \
         --cosmos-grpc="$cosmos-grpc" \
