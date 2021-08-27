@@ -16,8 +16,7 @@
     ```bash
     cd $HOME/gravity/solidity
     ```
-    - Firstly need to change the path of ERC20 artifact contracts in the `contract-deployer.ts`, there is default path is set                                           `/gravity/solidity/artifacts/contracts/TestERC20A.sol/TestERC20A.json`. So if you have add your Home directry path at the starting for example my Home           director is root then path will look like `/root/gravity/solidity/artifacts/contracts/TestERC20A.sol/TestERC20A.json`. update same for TestERC20B and             TestERC20C also.
-    - Now we'll deploy contract and save it in contract file in our home directory.
+    - Now we'll deploy gravity contract and save it in contract file in our home directory.
     - You have to change ```COSMOS-RPC``` ```ex: http://localhost:26657``` , ```ETH-RPC``` ```ex: http://"Your-eth-testchain-IP":8545``` endpoints and your             ```ETH_PRIVATE_KEY``` accordingly.
       ```bash
       npx ts-node \
@@ -26,7 +25,7 @@
          --eth-node="$ETH-RPC" \
          --eth-privkey="$ETH_PRIVATE_KEY" \
          --contract=artifacts/contracts/Gravity.sol/Gravity.json \
-         --test-mode=true >> $HOME/contracts
+         --test-mode=false > $HOME/contracts
         ```
     - you can check the contract information.
         ```bash
