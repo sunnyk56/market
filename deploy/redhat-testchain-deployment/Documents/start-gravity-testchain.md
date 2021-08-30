@@ -7,11 +7,11 @@
 
 2. Launch an Ethereum node. You can either use [Rinkeby](https://www.rinkeby.io/) or launch your own chain
     - Using Rinkeby
-        -  Open new terminal, use either screen command  like screen -S etherum-node
-        -  Run this command `geth --rinkeby --syncmode "light"  --rpc --rpcport "8545"` 
-        -  wait 2-4 min it will syncing of block
+        -  Open new terminal
+        -  Run `geth --rinkeby --syncmode "light"  --rpc --rpcport "8545"` 
+        -  wait untill blockchain is synchronized
     - Launch your own etherum network, to do this follow these steps 
-        - Now we will start a Ethereum testchain with our validator's Ethereum private-key. To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```$HOME/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
+        - To start the Ethereum testchain follow this [link](https://github.com/sunnyk56/market/blob/ONET-65/deploy/redhat-testchain-deployment/Documents/start-ethereum-testchain.md), copy the ```ETHGensis``` file present in ```$HOME/market/deploy/redhat-testchain-deployment/assests``` in your machine to machine in which you want to start Ethereum testchain.
 
 3. Next step is deploy the smart contract.
     - first we'll open the folder where contracts are placed.
