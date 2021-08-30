@@ -93,7 +93,4 @@ fsed 's#"validator_name": ""#"validator_name": "'$GRAVITY_VALIDATOR_NAME'"#g'  $
 fsed 's#"chain_id": ""#"chain_id": "'$CHAINID'"#g'  $HOME/val_info.json
 
 
-$GRAVITY $GRAVITY_HOME_FLAG start &
-
-
-
+$GRAVITY $GRAVITY_HOME_FLAG start
