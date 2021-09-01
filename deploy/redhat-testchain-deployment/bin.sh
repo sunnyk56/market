@@ -17,19 +17,19 @@ dnf -y install curl nano ca-certificates tar git jq gcc-c++ musl-devel musl-gcc 
 
 
 echo "--------------installing_rust---------------------------"
-curl https://sh.rustup.rs -sSf | bash -s -- -y
+curl https://sh.rustup.rs -sSf | sudo -u $SUDO_USER bash -s -- -y
 export PATH=$USER_HOME/.cargo/bin:$PATH
 cargo version
 
 
 echo "----------------cloning_repository-------------------"
 GRAVITY_DIR=$USER_HOME/gravity
-git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git $GRAVITY_DIR
+sudo -u $SUDO_USER git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git $GRAVITY_DIR
 
 
 echo "--------------install_golang---------------------------"
-curl https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz --output $USER_HOME/go.tar.gz
-tar -C $USER_HOME -xzf $USER_HOME/go.tar.gz
+sudo -u $SUDO_USER curl https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz --output $USER_HOME/go.tar.gz
+sudo -u $SUDO_USER tar -C $USER_HOME -xzf $USER_HOME/go.tar.gz
 export PATH=$PATH:$USER_HOME/go/bin
 
 
@@ -40,22 +40,22 @@ make install
 
 echo "----------------building_orchestrator_artifact-------------"
 cd $GRAVITY_DIR/orchestrator
-rustup target add x86_64-unknown-linux-musl
-cargo build --target=x86_64-unknown-linux-musl --release  --all
-cp $GRAVITY_DIR/orchestrator/target/x86_64-unknown-linux-musl/release/gbt $USER_HOME/go/bin/gbt
+sudo -u $SUDO_USER rustup target add x86_64-unknown-linux-musl
+sudo -u $SUDO_USER cargo build --target=x86_64-unknown-linux-musl --release  --all
+cp -p $GRAVITY_DIR/orchestrator/target/x86_64-unknown-linux-musl/release/gbt $USER_HOME/go/bin/gbt
 
 
 echo "---------------Installing_solidity-------------------"
 cd $GRAVITY_DIR/solidity
-npm ci
+sudo -u $SUDO_USER npm ci
 chmod -R +x scripts
-npm run typechain
+sudo -u $SUDO_USER npm run typechain
 
 
 echo "-------------------making_geth-----------------------"
-git clone https://github.com/ethereum/go-ethereum $USER_HOME/go-ethereum
+sudo -u $SUDO_USER git clone https://github.com/ethereum/go-ethereum $USER_HOME/go-ethereum
 cd $USER_HOME/go-ethereum/
 make geth
-cp build/bin/geth $USER_HOME/go/bin/geth
+cp -p build/bin/geth $USER_HOME/go/bin/geth
 
 cd $CURRENT_DIR
