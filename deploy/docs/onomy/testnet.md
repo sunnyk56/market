@@ -17,4 +17,4 @@ If you are looking to integrate against the Onomy testnet you can use the public
 - [How to become a validator (manual setup) (recommended)](onomy-testnet-docs/setting-up-a-validator-manual.md)
 - [How to become a validator](onomy-testnet-docs/setting-up-a-validator.md)
 - [Testnet Faucet](onomy-testnet-docs/faucet.md)
-- [Testing Gravity](onomy-testnet-docs/testing-gravity.md)
+- [Test Onomy Chain](onomy-testnet-docs/testing-gravity.md)
