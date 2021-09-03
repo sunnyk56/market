@@ -57,7 +57,7 @@ npm run typechain
 echo "-------------------making_geth-----------------------"
 git clone https://github.com/ethereum/go-ethereum $HOME/go-ethereum
 cd $HOME/go-ethereum/
-sudo make geth
+make geth
 cp -p build/bin/geth $HOME/go/bin/geth
 
 cd $CURRENT_DIR
