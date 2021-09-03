@@ -2,7 +2,7 @@
 
 Onomy Testnet is our first testnet for the Onomy chain. This one is also focused on proving out the Gravity bridge as well as deployment methodology and other custom modules for the upcoming production Onomy chain and Onomy chain incentivized testnet
 
-If you would like to join this testnet connect with us on the [Onomy Discord]()
+If you would like to join this testnet connect with us on the [Onomy Discord](testnet.md)
 
 If you are looking to integrate against the Onomy testnet you can use the public rpc
 
