@@ -14,7 +14,7 @@ I also suggest an open notepad or other document to keep track of the keys you w
 Start by logging into your Linux server using ssh. The following commands are intended to be run on that machine
 
 ### Download Onomy chain and the Gravity tools
-For Fedora or Redhat
+For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
 
 ```
 sudo yum install -y git

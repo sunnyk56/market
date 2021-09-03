@@ -7,7 +7,7 @@ A Onomy chain full node is just like any other Cosmos chain full node and unlike
 A Linux server with any modern Linux distribution, 2gb of ram and at least 20gb storage. Requirements are very minimal.
 
 ### Download Onomy chain binaries
-
+For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
 ```
 sudo yum install -y git
 git clone -b ONET-65 https://github.com/sunnyk56/market.git
@@ -46,8 +46,14 @@ addr_book_strict = false
 
 ### Start your full node and wait for it to sync
 
-Ask what the current blockheight is in the chat
-
 ```
 onomyd --home $HOME/onomy/onomy start
 ```
+### Check the status of the Onomy chain
+
+You should be good to go! You can check the status of the three
+Onomy chain by running.
+```
+curl http//localhost:26657/status
+```
+if catching_up is false means your node is fully synced

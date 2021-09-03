@@ -7,6 +7,7 @@ In order to use the faucet and receive testnet tokens you'll first need to setup
 A Linux server with any modern Linux distribution, 2gb of ram and at least 20gb storage. Requirements are very minimal.
 
 ### Download Onomy chain and the Gravity tools
+For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
 
 ```
 # the Onomy chain binary itself

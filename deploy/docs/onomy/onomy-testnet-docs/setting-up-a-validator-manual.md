@@ -11,7 +11,7 @@ I also suggest an open notepad or other document to keep track of the keys you w
 ## Bootstrapping steps and commands
 
 ### Download Onomy chain and the Gravity tools
-
+For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
 ```
 # the Onomy chain binary itself
 sudo yum install -y git
