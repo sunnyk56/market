@@ -128,4 +128,4 @@ sleep 10
 echo "Adding initial ethereum value for gravity validator"
 jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json | sponge $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json
 
-$GRAVITY $GRAVITY_HOME_FLAG start &
+$GRAVITY $GRAVITY_HOME_FLAG start
