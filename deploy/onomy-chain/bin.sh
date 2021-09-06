@@ -32,7 +32,7 @@ echo "----------------cloning_repository-------------------"
 GRAVITY_DIR=$HOME_DIRECTORY/gravity
 ONOMY_DIR=$HOME_DIRECTORY/go/onomy
 git clone https://github.com/onomyprotocol/cosmos-gravity-bridge.git $GRAVITY_DIR
-#git clone -b dzmitryhil/cosmos-0.42.1 https://github.com/onomyprotocol/onomy.git $ONOMY_DIR
+git clone -b dzmitryhil/cosmos-0.42.1 https://github.com/onomyprotocol/onomy.git $ONOMY_DIR
 
 echo "--------------install_golang---------------------------"
 curl https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz --output $HOME_DIRECTORY/go.tar.gz
