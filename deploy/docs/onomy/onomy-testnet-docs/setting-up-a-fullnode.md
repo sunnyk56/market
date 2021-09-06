@@ -44,7 +44,7 @@ Now it's finally up and start the sycing block
 You should be good to go! You can check the status of the three
 Onomy chain by running.
 ```
-curl http//localhost:26657/status
+curl http://localhost:26657/status
 ```
 if catching_up is false means your node is fully synced
 
