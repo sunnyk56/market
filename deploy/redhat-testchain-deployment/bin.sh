@@ -17,7 +17,6 @@ sudo dnf -y install curl nano ca-certificates tar git jq gcc-c++ musl-devel musl
 
 echo "--------------installing_rust---------------------------"
 curl https://sh.rustup.rs -sSf | bash -s -- -y
-#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sudo -u $SUDO_USER sh
 export PATH=$HOME/.cargo/bin:$PATH
 echo "####################################"
 cargo version
