@@ -165,20 +165,17 @@ You should have received 1000000000 Onomy Governance Token in nom and the same a
 To get the address for your validator key you can run the below, where 'myvalidatorkeyname' is whatever you named your key in the 'generate your key' step.
 
 ```
-
 onomyd --home $HOME/onomy/onomy keys show myvalidatorkeyname --keyring-backend test
-
 ```
 
 ```
-
-onomyd --home $HOME/onomy/onomy tx bank send myvalidatorkeyname <your delegate cosmos address> 1000000nom --chain-id=onomy
+onomyd --home $HOME/onomy/onomy tx bank send <your validator address> <your delegate cosmos address> 1000000nom --chain-id=onomy --keyring-backend test
 or using facuet
 curl -X POST http://147.182.128.38:8000/ -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"address\": \"<your delegate cosmos address>\",  \"coins\": [    \"100000000nom\"  ]}"
 
 ```
 
-With the Onomy side faucet funded, now we need some Rinkeby Eth
+With the Onomy side faucet funded, now we need some Rinkeby Eth in the Ethereum delegate key
 
 ```
 https://www.rinkeby.io/#faucet

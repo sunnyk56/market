@@ -114,13 +114,13 @@ onomyd --home $HOME/onomy/onomy keys show myvalidatorkeyname --keyring-backend t
 
 ```
 
-onomyd --home $HOME/onomy/onomy tx bank send myvalidatorkeyname <your delegate cosmos address> 1000000nom --chain-id=onomy
+onomyd --home $HOME/onomy/onomy tx bank send <your validator address> <your delegate cosmos address> 1000000nom --chain-id=onomy --keyring-backend test
 or using facuet
 curl -X POST http://147.182.128.38:8000/ -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"address\": \"<your delegate cosmos address>\",  \"coins\": [    \"100000000nom\"  ]}"
 
 ```
 
-With the Onomy side faucet funded, now we need some Rinkeby Eth
+With the Onomy side faucet funded, now we need some Rinkeby Eth in the Ethereum delegate key
 
 ```
 https://www.rinkeby.io/#faucet
