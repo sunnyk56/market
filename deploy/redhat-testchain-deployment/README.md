@@ -2,7 +2,7 @@
  
 ### If you are setting up your machine for the first time, you have to install some dependencies to make it all work.
 
-- To install dependencies please run the bin.sh script in your system with administrator privilege.
+- To install dependencies please run the bin.sh script in your system WITHOUT administrator privileges. It will ask you for admin access after you run the script
 ```bash
 sudo bash bin.sh
 ```
