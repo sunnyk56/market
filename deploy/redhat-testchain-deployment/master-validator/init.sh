@@ -125,7 +125,7 @@ echo "Please save this node-id to connect other validators to the chain"
 echo $($GRAVITY $GRAVITY_HOME_FLAG tendermint show-node-id)
 sleep 10
 
-echo "Adding initial ethereum value for gravity validator"
-jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json | sponge $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json
+#echo "Adding initial ethereum value for gravity validator"
+#jq ".alloc |= . + {$(jq .address $GRAVITY_HOME/eth_key.json) : {\"balance\": \"0x1337000000000000000000\"}}" $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json | sponge $HOME/market/deploy/redhat-testchain-deployment/assets/ETHGenesis.json
 
 $GRAVITY $GRAVITY_HOME_FLAG start

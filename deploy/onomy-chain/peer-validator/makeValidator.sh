@@ -5,13 +5,11 @@ echo "building environment"
 # Initial dir
 CURRENT_WORKING_DIR=$HOME
 # Name of the network to bootstrap
-#echo "Enter chain-id"
-#read chainid
 CHAINID=$(jq .chain_id $HOME/val_info.json | sed 's#\"##g')
 # Name of the gravity artifact
 GRAVITY=onomyd
 # The name of the gravity node
-GRAVITY_NODE_NAME="gravity"
+GRAVITY_NODE_NAME="onomy"
 # The address to run gravity node
 GRAVITY_HOST="0.0.0.0"
 # Home folder for gravity config
@@ -29,33 +27,22 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-#echo "Enter validator name that you have entered while run init.sh"
-#read validator
 GRAVITY_VALIDATOR_NAME=$(jq .validator_name $HOME/val_info.json | sed 's#\"##g')
 # Gravity chain demons
 STAKE_DENOM="nom"
 #NORMAL_DENOM="samoleans"
 NORMAL_DENOM="footoken"
-# Moniker of orchestrator
-#echo "Please enter mnemonic of any orchestrator running in testchain to import tokens from"
-#read mnemonic
-#MONIKER_ORCH="$mnemonic"
+echo "Please enter faucet url get faucet token for example http://domain_name:8000/"
+read url
+FAUCET_TOKEN_BASE_URL="$url"
 
 
-# ------------------ Run fauset ------------------
-#ONOMY_VALIDATOR_MNEMONIC=$(jq -r .mnemonic $GRAVITY_HOME/validator_key.json)
-#echo "Starting fauset based on validator account"
-#faucet -cli-name=$GRAVITY -mnemonic="$ONOMY_VALIDATOR_MNEMONIC" &
+# ------------------ get faucet token------------------
+ONOMY_VALIDATOR_ADDRESS=$(jq -r .address $GRAVITY_HOME/validator_key.json)
+curl -X POST $FAUCET_TOKEN_BASE_URL -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"address\": \"$ONOMY_VALIDATOR_ADDRESS\",  \"coins\": [    \"200000000nom\"  ]}"
 
-# Recover the orchestrator to take some token from it
-#$GRAVITY $GRAVITY_HOME_FLAG keys add orch --recover $GRAVITY_KEYRING_FLAG <<< $MONIKER_ORCH
-
-# Transfer some stake token to new validator
-#$GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG) 200000000stake $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
-
-# Transfer some footoken to new validator
-#$GRAVITY $GRAVITY_HOME_FLAG tx bank send $($GRAVITY $GRAVITY_HOME_FLAG keys show -a orch $GRAVITY_KEYRING_FLAG) $($GRAVITY $GRAVITY_HOME_FLAG keys show -a $GRAVITY_VALIDATOR_NAME $GRAVITY_KEYRING_FLAG) 200000000footoken $GRAVITY_CHAINID_FLAG $GRAVITY_KEYRING_FLAG -y
-
+#  wait 5 sec to sync balances in the validator account
+sleep 5
 # Store the public key of validator
 PUB_KEY=$($GRAVITY $GRAVITY_HOME_FLAG tendermint show-validator)
 
@@ -73,4 +60,4 @@ $GRAVITY $GRAVITY_HOME_FLAG tx staking create-validator \
 --gas-adjustment=1.5 \
 --gas-prices="1$STAKE_DENOM" \
 --from=$GRAVITY_VALIDATOR_NAME \
-$GRAVITY_KEYRING_FLAG
+$GRAVITY_KEYRING_FLAG -y

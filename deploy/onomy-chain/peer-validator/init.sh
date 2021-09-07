@@ -30,9 +30,7 @@ GRAVITY_KEYRING_FLAG="--keyring-backend test"
 # Chain ID flag
 GRAVITY_CHAINID_FLAG="--chain-id $CHAINID"
 # The name of the gravity validator
-echo "Enter validator name"
-read validator
-GRAVITY_VALIDATOR_NAME=$validator
+GRAVITY_VALIDATOR_NAME=validator
 # Gravity chain demons
 STAKE_DENOM="nom"
 #NORMAL_DENOM="samoleans"
