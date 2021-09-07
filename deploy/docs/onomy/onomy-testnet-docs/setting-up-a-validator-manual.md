@@ -10,10 +10,22 @@ I also suggest an open notepad or other document to keep track of the keys you w
 
 ## Bootstrapping steps and commands
 
-### Download Onomy chain and the Gravity tools
-For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
+### Download/install Onomy chain binaries
 ```
-# the Onomy chain binary itself
+To download binary follow these commands
+mkdir binaries
+cd binaries
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/onomyd
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/gbt
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/geth
+cd ..
+chmod -R +x binaries
+export PATH=$PATH:$HOME/binaries/
+
+
+or If you have Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
+ and you want to make binaries yourself, then follow these steps
+
 sudo yum install -y git
 git clone -b ONET-65 https://github.com/sunnyk56/market.git
 cd market/deploy/onomy-chain
@@ -48,24 +60,28 @@ jq .result.genesis $HOME/raw.json >> $HOME/onomy/onomy/config/genesis.json
 rm -rf $HOME/raw.json
 ```
 
-### Add seed node
+### Update toml configuration files
 
-Change the seed field in $HOME/onomy/onomy/config/config.toml to contain the following:
-
-```
-
-seeds = "1302d0ed290d74d6f061fb8506e0e34f3f67f7ff@147.182.128.38:26656"
-enable = true
-external_address = "tcp://0.0.0.0:26656"
-addr_book_strict = false
-```
-
-### Start your full node and wait for it to sync
-
-Ask what the current blockheight is in the chat
+Change in $HOME/onomy/onomy/config/config.toml to contain the following:
 
 ```
 
+replace seeds = "" to seeds = "1302d0ed290d74d6f061fb8506e0e34f3f67f7ff@147.182.128.38:26656"
+replace "tcp://127.0.0.1:26657" to "tcp://0.0.0.0:26657"
+replace "tcp://127.0.0.1:26656" to "tcp://0.0.0.0:26656"
+replace addr_book_strict = true to addr_book_strict = false
+replace external_address = "" to external_address = "tcp://0.0.0.0:26656"
+```
+
+Change in $HOME/onomy/onomy/config/app.toml to contain the following:
+
+```
+replace enable = false to enable = true
+replace swagger = false to swagger = true
+```
+
+### Start your full node in another terminal and wait for it to sync
+```
 onomyd --home $HOME/onomy/onomy start
 ```
 
@@ -87,7 +103,7 @@ curl -X POST http://147.182.128.38:8000/ -H  "accept: application/json" -H  "Con
 
 This will provide you 100000000nom from the faucet storage.
 
-### Send your validator setup transaction
+### Send your validator setup transaction but before that node should fully sync
 
 ```
 

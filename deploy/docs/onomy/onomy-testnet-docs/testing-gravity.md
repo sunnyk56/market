@@ -8,6 +8,7 @@ a large balance of ERC20 tokens from the contracts listed here.
 
 ```
 0xFab46E002BbF0b4509813474841E0716E6730136 - FooToken (FAU)
+0xd92e713d051c37ebb2561803a3b5fbabc4962431 - Test USD (TUSDT)
 ```
 
 Note that the 'amount' field for this command is now in whole coins rather than wei like the previous testnets

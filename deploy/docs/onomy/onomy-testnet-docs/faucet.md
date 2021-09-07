@@ -6,11 +6,22 @@ In order to use the faucet and receive testnet tokens you'll first need to setup
 
 A Linux server with any modern Linux distribution, 2gb of ram and at least 20gb storage. Requirements are very minimal.
 
-### Download Onomy chain and the Gravity tools
-For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
-
+### Download/install Onomy chain binaries
 ```
-# the Onomy chain binary itself
+To download binary follow these commands
+mkdir binaries
+cd binaries
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/onomyd
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/gbt
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/geth
+cd ..
+chmod -R +x binaries
+export PATH=$PATH:$HOME/binaries/
+
+
+or If you have Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
+ and you want to make binaries yourself, then follow these steps
+
 sudo yum install -y git
 git clone -b ONET-65 https://github.com/sunnyk56/market.git
 cd market/deploy/onomy-chain

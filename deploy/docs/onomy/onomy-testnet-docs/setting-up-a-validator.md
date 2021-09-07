@@ -12,10 +12,23 @@ I also suggest an open notepad or other document to keep track of the keys you w
 
 Start by logging into your Linux server using ssh. The following commands are intended to be run on that machine
 
-### Download Onomy chain and the Gravity tools
-For Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
+### Download/install Onomy chain binaries
 ```
-ssudo yum install -y git
+To download binary follow these commands
+mkdir binaries
+cd binaries
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/onomyd
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/gbt
+wget https://github.com/sunnyk56/market/raw/ONET-65/release/download/v0.0.1/geth
+cd ..
+chmod -R +x binaries
+export PATH=$PATH:$HOME/binaries/
+
+
+or If you have Fedora (Fedora 34) or Redhat (Red Hat Enterprise Linux 8.4 (Ootpa))
+ and you want to make binaries yourself, then follow these steps
+
+sudo yum install -y git
 git clone -b ONET-65 https://github.com/sunnyk56/market.git
 cd market/deploy/onomy-chain
 bash bin.sh
@@ -24,6 +37,7 @@ bash bin.sh
 ### Initiate chain
 
 ```
+git clone -b ONET-65 https://github.com/sunnyk56/market.git
 cd market/deploy/onomy-chain
 ```
 
@@ -34,6 +48,10 @@ down the keys you generate. You will need them later.
 
 ```
 bash peer-validator/init.sh
+
+Note: 1. Script will ask for enter validator name(Type any name for example validator1)
+      2. Script will ask for enter node-id of any validator that is running in chain to add seed(Please enter 1302d0ed290d74d6f061fb8506e0e34f3f67f7ff)
+      3. Script will ask for enter ip of validator for which you have added node-id(Please enter 147.182.128.38)
 ```
 Now it's finally up and start the sycing block
 
@@ -46,10 +64,12 @@ curl http://localhost:26657/status
 ```
 if catching_up is false means your node is fully synced
 
-### Run script to make it as validator
+### Run script to make it as validator node but before that node should fully sync
 
 ```
 bash peer-validator/makeValidator.sh
+
+Note: 1. Script will ask for enter faucet url get faucet token(Please enter http://147.182.128.38:8000/)
 ```
 You can check the validators of the
 Onomy chain by running.
