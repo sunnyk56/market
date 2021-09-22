@@ -31,7 +31,7 @@ echo "--------------install_golang---------------------------"
 curl https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz --output $HOME/go.tar.gz
 tar -C $HOME -xzf $HOME/go.tar.gz
 export PATH=$PATH:$HOME/go/bin
-export GOPATH=/home/user1/go/
+export GOPATH=$HOME/go/
 echo "$GOPATH"
 
 echo "----------------------building_gravity_artifact---------------"
